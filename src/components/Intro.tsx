@@ -6,13 +6,16 @@ import d3 from "@/assets/darshan-3.png";
 import d4 from "@/assets/darshan-4.png";
 import d5 from "@/assets/darshan-5.png";
 
-const slides = [
-  { src: d1, dir: "left" },
-  { src: d2, dir: "right" },
-  { src: d3, dir: "left" },
-  { src: d4, dir: "right" },
-  { src: d5, dir: "left" },
-] as const;
+type Dir = "left" | "right";
+type Zoom = "in" | "out";
+
+const slides: { src: string; dir: Dir; zoom: Zoom }[] = [
+  { src: d1, dir: "left", zoom: "in" },
+  { src: d2, dir: "right", zoom: "out" },
+  { src: d3, dir: "left", zoom: "in" },
+  { src: d4, dir: "right", zoom: "out" },
+  { src: d5, dir: "left", zoom: "in" },
+];
 
 const IMG_MS = 2000;
 
@@ -49,27 +52,34 @@ export function Intro({ onDone }: { onDone: () => void }) {
         Skip Intro
       </button>
 
-      <AnimatePresence mode="wait">
-        {!showTitle && index < slides.length && (
-          <motion.div
-            key={index}
-            className="absolute inset-0 flex items-center justify-center"
-            initial={{ opacity: 0, x: slides[index].dir === "left" ? -120 : 120, scale: 1.15 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.25 }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <motion.img
-              src={slides[index].src}
-              alt=""
-              className="h-[80vh] w-auto max-w-[90vw] object-contain drop-shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
-              initial={{ scale: 1 }}
-              animate={{ scale: [1, 1.12, 1.05] }}
-              transition={{ duration: IMG_MS / 1000, ease: "easeInOut" }}
-            />
-            <div className="pointer-events-none absolute inset-0 vignette" />
-          </motion.div>
-        )}
+      <AnimatePresence mode="sync">
+        {!showTitle && index < slides.length && (() => {
+          const s = slides[index];
+          const fromX = s.dir === "left" ? -140 : 140;
+          const toX = s.dir === "left" ? 60 : -60;
+          const fromScale = s.zoom === "in" ? 1 : 1.25;
+          const toScale = s.zoom === "in" ? 1.2 : 1;
+          return (
+            <motion.div
+              key={index}
+              className="absolute inset-0 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            >
+              <motion.img
+                src={s.src}
+                alt=""
+                className="h-[80vh] w-auto max-w-[90vw] object-contain drop-shadow-[0_20px_60px_rgba(0,0,0,0.8)]"
+                initial={{ x: fromX, scale: fromScale }}
+                animate={{ x: toX, scale: toScale }}
+                transition={{ duration: (IMG_MS + 600) / 1000, ease: "linear" }}
+              />
+              <div className="pointer-events-none absolute inset-0 vignette" />
+            </motion.div>
+          );
+        })()}
 
         {showTitle && (
           <motion.div
