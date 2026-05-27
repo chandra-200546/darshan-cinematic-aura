@@ -17,7 +17,7 @@ const slides: { src: string; dir: Dir; zoom: Zoom }[] = [
   { src: d5, dir: "left", zoom: "in" },
 ];
 
-const IMG_MS = 2000;
+const IMG_MS = 1000;
 
 export function Intro({ onDone }: { onDone: () => void }) {
   const [index, setIndex] = useState(0);
