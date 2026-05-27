@@ -45,9 +45,13 @@ const chapters = [
 
 const achievements = [
   { year: "2002", title: "Majestic Phenomenon", desc: "Debut as lead transforms him into a mass hero overnight" },
+  { year: "2010", title: "Karnataka State Film Award", desc: "Best Actor — for outstanding performance" },
   { year: "2012", title: "Sangolli Rayanna", desc: "Historical war epic earns pan-Karnataka respect beyond commercial cinema" },
+  { year: "2014", title: "SIIMA Award", desc: "Recognized at South Indian International Movie Awards" },
+  { year: "2019", title: "Filmfare South", desc: "Honored for blockbuster Yajamana" },
   { year: "2019", title: "Kurukshetra — Duryodhana", desc: "Bold mythological role praised for royal screen presence" },
-  { year: "2023", title: "Kaatera Storm", desc: "Rural emotional drama shatters Kannada box office records" },
+  { year: "2023", title: "Box Office King", desc: "Kaatera shatters Kannada box office records" },
+  { year: "2023", title: "Kaatera Storm", desc: "Rural emotional drama connects deeply with farmers and villages" },
 ];
 
 const fanQuotes = [
