@@ -273,6 +273,7 @@ export function Portfolio() {
               <div className="absolute inset-x-0 bottom-0 p-4 translate-y-2 group-hover:translate-y-0 transition">
                 <div className="font-display text-amber-200 text-lg leading-tight">{m.title}</div>
                 <div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">{m.year}</div>
+                <div className="text-[11px] text-amber-100/60 mt-2 opacity-0 group-hover:opacity-100 transition">{m.note}</div>
               </div>
               <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition">
                 <Play className="w-8 h-8 text-amber-300 fill-amber-300/30" />
