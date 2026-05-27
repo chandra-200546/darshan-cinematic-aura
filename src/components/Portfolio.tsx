@@ -167,18 +167,22 @@ export function Portfolio() {
             className="space-y-5 text-amber-100/80 leading-relaxed"
           >
             <p className="text-lg">
-              Born Darshan Thoogudeepa, the <span className="text-amber-300 font-semibold">Challenging Star</span> rose
-              from the lanes of Mysuru to become one of the most celebrated faces of Kannada cinema.
+              Born <span className="text-amber-300 font-semibold">Hemanth Kumar</span> on 16 February 1977,
+              the son of legendary character actor Thoogudeepa Srinivas grew up inside Kannada cinema —
+              not in luxury, but in its hard work, stress and uncertainty.
             </p>
             <p>
-              With a career spanning over two decades and 50+ films, he has redefined mass entertainment in Sandalwood —
-              blending raw intensity with heartfelt emotion. Known affectionately as <span className="text-amber-300">D-Boss</span> by
-              his army of fans, his films are cultural events.
+              Rejected as "too rough" to be a hero, he fought through small TV roles and behind-the-scenes
+              work until <em>Majestic</em> (2002) detonated theatres and turned him into the
+              <span className="text-amber-300"> Challenging Star</span>. Today his army calls him
+              <span className="text-amber-300"> D-Boss</span>, and his releases are festivals across Karnataka.
             </p>
             <p>
-              From the cult <em>Majestic</em> to the record-shattering <em>Kaatera</em>, every role is a reminder of
-              what star power truly means.
+              From <em>Kariya</em> and <em>Kalasipalya</em> to <em>Sangolli Rayanna</em>,
+              <em> Kurukshetra</em>, <em>Roberrt</em> and the record-shattering <em>Kaatera</em> —
+              every role is a reminder of what star power truly means.
             </p>
+
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-amber-500/15">
               <div><div className="font-display text-3xl gold-gradient font-bold">50+</div><div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">Films</div></div>
               <div><div className="font-display text-3xl gold-gradient font-bold">20+</div><div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">Years</div></div>
