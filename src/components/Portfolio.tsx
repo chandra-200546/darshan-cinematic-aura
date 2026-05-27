@@ -56,7 +56,7 @@ const achievements = [
 
 const fanQuotes = [
   { name: "Raghu • Mysuru", text: "Boss is not just an actor, he is an emotion for every Kannadiga. Abhimani for life!" },
-  { name: "Pavithra • Bengaluru", text: "From Majestic to Kaatera — every film is a celebration. Hats off Challenging Star!" },
+  { name: "Chandrashekhar • Bengaluru", text: "From Majestic to Kaatera — every film is a celebration. Hats off Challenging Star!" },
   { name: "Kiran • Hassan", text: "Darshan sir's swag, dialogues and screen presence — nobody can match. D-Boss forever!" },
 ];
 
