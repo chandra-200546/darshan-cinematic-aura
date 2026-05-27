@@ -90,6 +90,7 @@ export function Portfolio() {
           <a href="#hero" className="font-display gold-gradient text-lg sm:text-xl font-bold tracking-widest">D • BOSS</a>
           <div className="hidden md:flex gap-8 text-xs uppercase tracking-[0.25em] text-amber-100/70">
             <a href="#about" className="hover:text-amber-300 transition">About</a>
+            <a href="#story" className="hover:text-amber-300 transition">Story</a>
             <a href="#career" className="hover:text-amber-300 transition">Career</a>
             <a href="#movies" className="hover:text-amber-300 transition">Films</a>
             <a href="#awards" className="hover:text-amber-300 transition">Awards</a>
