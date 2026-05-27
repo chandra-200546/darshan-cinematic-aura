@@ -17,21 +17,37 @@ import d4 from "@/assets/darshan-4.png";
 import d5 from "@/assets/darshan-5.png";
 
 const movies = [
-  { title: "Majestic", year: "2002", poster: d1 },
-  { title: "Kariya", year: "2003", poster: d2 },
-  { title: "Jothe Jotheyali", year: "2006", poster: d3 },
-  { title: "Yajamana", year: "2019", poster: d4 },
-  { title: "Roberrt", year: "2021", poster: d5 },
-  { title: "Kranti", year: "2023", poster: d1 },
-  { title: "Kaatera", year: "2023", poster: d2 },
-  { title: "Devil", year: "2025", poster: d3 },
+  { title: "Majestic", year: "2002", poster: d1, note: "The film that birthed D-Boss" },
+  { title: "Kariya", year: "2003", poster: d2, note: "Mass action breakthrough" },
+  { title: "Kalasipalya", year: "2004", poster: d3, note: "Rugged blockbuster" },
+  { title: "Anna Thangi", year: "2005", poster: d4, note: "Emotional family drama" },
+  { title: "Gaja", year: "2008", poster: d5, note: "Mass entertainer" },
+  { title: "Saarathi", year: "2011", poster: d1, note: "Romantic action comeback" },
+  { title: "Sangolli Rayanna", year: "2012", poster: d2, note: "Historical war epic" },
+  { title: "Bulbul", year: "2013", poster: d3, note: "Stylish romance" },
+  { title: "Ambareesha", year: "2014", poster: d4, note: "Tribute commercial hit" },
+  { title: "Mr. Airavata", year: "2015", poster: d5, note: "Police mass action" },
+  { title: "Chakravarthy", year: "2017", poster: d1, note: "Gangster drama" },
+  { title: "Kurukshetra", year: "2019", poster: d2, note: "Mythological epic — Duryodhana" },
+  { title: "Roberrt", year: "2021", poster: d3, note: "Post-pandemic blockbuster" },
+  { title: "Kaatera", year: "2023", poster: d4, note: "Rural emotional storm" },
+  { title: "The Devil", year: "2025", poster: d5, note: "Dark mass spectacle" },
+];
+
+const chapters = [
+  { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
+  { n: "II", title: "Struggle Before Stardom", body: "He didn't arrive as a hero. He worked behind the scenes, did small TV roles and faced rejection — 'too rough', 'not hero material'. But even in tiny scenes, his screen presence refused to be ignored." },
+  { n: "III", title: "Majestic — The Turning Point", body: "2002. Directed by P. N. Sathya. A rugged underworld mass character that detonated theatres with whistles and fireworks. The foundation of the D-Boss era was laid." },
+  { n: "IV", title: "The Rise of D-Boss", body: "He stopped being an actor. He became an emotion. Giant cutouts, milk abhisheka, drum celebrations, bike rallies — release day in Karnataka became a festival." },
+  { n: "V", title: "Heart of the Common People", body: "Loved for his simplicity, directness, quiet help to workers and grounded village-style personality. Off screen — horses, birds, farms, wildlife. One among the people." },
+  { n: "VI", title: "Legacy", body: "Mass cinema. Kannada pride. Rural strength. Loyalty to fans. Some actors become stars. Some stars become legends. Very few become emotions inside millions of hearts." },
 ];
 
 const achievements = [
-  { year: "2010", title: "Karnataka State Film Award", desc: "Best Actor — for outstanding performance" },
-  { year: "2014", title: "SIIMA Award", desc: "Recognized at South Indian International Movie Awards" },
-  { year: "2019", title: "Filmfare South", desc: "Honored for blockbuster Yajamana" },
-  { year: "2023", title: "Box Office King", desc: "Kaatera shatters Kannada box office records" },
+  { year: "2002", title: "Majestic Phenomenon", desc: "Debut as lead transforms him into a mass hero overnight" },
+  { year: "2012", title: "Sangolli Rayanna", desc: "Historical war epic earns pan-Karnataka respect beyond commercial cinema" },
+  { year: "2019", title: "Kurukshetra — Duryodhana", desc: "Bold mythological role praised for royal screen presence" },
+  { year: "2023", title: "Kaatera Storm", desc: "Rural emotional drama shatters Kannada box office records" },
 ];
 
 const fanQuotes = [
