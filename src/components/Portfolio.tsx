@@ -192,20 +192,48 @@ export function Portfolio() {
         </div>
       </Section>
 
+      {/* STORY — chapters */}
+      <Section id="story" className="bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+        <SectionTitle eyebrow="THE JOURNEY" title="Chapters of a Legend" />
+        <div className="grid md:grid-cols-2 gap-6">
+          {chapters.map((c, i) => (
+            <motion.article
+              key={c.n}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: (i % 2) * 0.1 }}
+              className="group relative p-8 rounded-lg border border-amber-500/20 bg-black/40 hover:border-amber-400/60 hover:-translate-y-1 transition overflow-hidden"
+            >
+              <div className="absolute -top-6 -right-2 font-display text-[6rem] leading-none text-amber-400/10 group-hover:text-amber-400/20 transition">
+                {c.n}
+              </div>
+              <div className="relative">
+                <div className="text-xs uppercase tracking-[0.4em] text-amber-300/70">Chapter {c.n}</div>
+                <h3 className="font-display gold-gradient text-2xl sm:text-3xl mt-3">{c.title}</h3>
+                <p className="text-amber-100/70 mt-4 leading-relaxed">{c.body}</p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </Section>
+
       {/* CAREER */}
-      <Section id="career" className="bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+      <Section id="career">
         <SectionTitle eyebrow="MILESTONES" title="Career Highlights" />
         <div className="relative">
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-amber-500/40 to-transparent" />
           {[
-            { y: "2001", t: "Debut", d: "Stepped into Kannada cinema with Majestic, an instant cult hit." },
-            { y: "2006", t: "Romantic Storm", d: "Jothe Jotheyali wins hearts across Karnataka." },
-            { y: "2014", t: "Mythological Marvel", d: "Brahma & Brindavana — back-to-back blockbusters." },
-            { y: "2019", t: "Yajamana", d: "A box office tornado, cementing his pan-Karnataka dominance." },
-            { y: "2023", t: "Kaatera", d: "Period action drama becomes the biggest Kannada hit." },
+            { y: "2002", t: "Majestic", d: "Debut as lead — a rugged mass character explodes onto theatres and the D-Boss era is born." },
+            { y: "2003", t: "Kariya", d: "Mass action smash — establishes him as the next big Kannada hero." },
+            { y: "2005", t: "Anna Thangi", d: "Emotional family drama proves he is far more than an action star." },
+            { y: "2012", t: "Sangolli Rayanna", d: "Historical war epic — patriotism, warrior energy and pan-Karnataka respect." },
+            { y: "2019", t: "Kurukshetra", d: "Bold turn as Duryodhana — royal screen presence in a mythological scale." },
+            { y: "2021", t: "Roberrt", d: "Post-pandemic blockbuster carrying a powerful father–son emotion." },
+            { y: "2023", t: "Kaatera", d: "Rural emotional storm shatters Kannada box office records." },
           ].map((m, i) => (
             <motion.div
-              key={m.y}
+              key={m.y + m.t}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -223,6 +251,7 @@ export function Portfolio() {
           ))}
         </div>
       </Section>
+
 
       {/* MOVIES */}
       <Section id="movies">
