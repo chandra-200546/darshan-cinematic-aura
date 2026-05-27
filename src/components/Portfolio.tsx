@@ -17,21 +17,37 @@ import d4 from "@/assets/darshan-4.png";
 import d5 from "@/assets/darshan-5.png";
 
 const movies = [
-  { title: "Majestic", year: "2002", poster: d1 },
-  { title: "Kariya", year: "2003", poster: d2 },
-  { title: "Jothe Jotheyali", year: "2006", poster: d3 },
-  { title: "Yajamana", year: "2019", poster: d4 },
-  { title: "Roberrt", year: "2021", poster: d5 },
-  { title: "Kranti", year: "2023", poster: d1 },
-  { title: "Kaatera", year: "2023", poster: d2 },
-  { title: "Devil", year: "2025", poster: d3 },
+  { title: "Majestic", year: "2002", poster: d1, note: "The film that birthed D-Boss" },
+  { title: "Kariya", year: "2003", poster: d2, note: "Mass action breakthrough" },
+  { title: "Kalasipalya", year: "2004", poster: d3, note: "Rugged blockbuster" },
+  { title: "Anna Thangi", year: "2005", poster: d4, note: "Emotional family drama" },
+  { title: "Gaja", year: "2008", poster: d5, note: "Mass entertainer" },
+  { title: "Saarathi", year: "2011", poster: d1, note: "Romantic action comeback" },
+  { title: "Sangolli Rayanna", year: "2012", poster: d2, note: "Historical war epic" },
+  { title: "Bulbul", year: "2013", poster: d3, note: "Stylish romance" },
+  { title: "Ambareesha", year: "2014", poster: d4, note: "Tribute commercial hit" },
+  { title: "Mr. Airavata", year: "2015", poster: d5, note: "Police mass action" },
+  { title: "Chakravarthy", year: "2017", poster: d1, note: "Gangster drama" },
+  { title: "Kurukshetra", year: "2019", poster: d2, note: "Mythological epic — Duryodhana" },
+  { title: "Roberrt", year: "2021", poster: d3, note: "Post-pandemic blockbuster" },
+  { title: "Kaatera", year: "2023", poster: d4, note: "Rural emotional storm" },
+  { title: "The Devil", year: "2025", poster: d5, note: "Dark mass spectacle" },
+];
+
+const chapters = [
+  { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
+  { n: "II", title: "Struggle Before Stardom", body: "He didn't arrive as a hero. He worked behind the scenes, did small TV roles and faced rejection — 'too rough', 'not hero material'. But even in tiny scenes, his screen presence refused to be ignored." },
+  { n: "III", title: "Majestic — The Turning Point", body: "2002. Directed by P. N. Sathya. A rugged underworld mass character that detonated theatres with whistles and fireworks. The foundation of the D-Boss era was laid." },
+  { n: "IV", title: "The Rise of D-Boss", body: "He stopped being an actor. He became an emotion. Giant cutouts, milk abhisheka, drum celebrations, bike rallies — release day in Karnataka became a festival." },
+  { n: "V", title: "Heart of the Common People", body: "Loved for his simplicity, directness, quiet help to workers and grounded village-style personality. Off screen — horses, birds, farms, wildlife. One among the people." },
+  { n: "VI", title: "Legacy", body: "Mass cinema. Kannada pride. Rural strength. Loyalty to fans. Some actors become stars. Some stars become legends. Very few become emotions inside millions of hearts." },
 ];
 
 const achievements = [
-  { year: "2010", title: "Karnataka State Film Award", desc: "Best Actor — for outstanding performance" },
-  { year: "2014", title: "SIIMA Award", desc: "Recognized at South Indian International Movie Awards" },
-  { year: "2019", title: "Filmfare South", desc: "Honored for blockbuster Yajamana" },
-  { year: "2023", title: "Box Office King", desc: "Kaatera shatters Kannada box office records" },
+  { year: "2002", title: "Majestic Phenomenon", desc: "Debut as lead transforms him into a mass hero overnight" },
+  { year: "2012", title: "Sangolli Rayanna", desc: "Historical war epic earns pan-Karnataka respect beyond commercial cinema" },
+  { year: "2019", title: "Kurukshetra — Duryodhana", desc: "Bold mythological role praised for royal screen presence" },
+  { year: "2023", title: "Kaatera Storm", desc: "Rural emotional drama shatters Kannada box office records" },
 ];
 
 const fanQuotes = [
@@ -74,6 +90,7 @@ export function Portfolio() {
           <a href="#hero" className="font-display gold-gradient text-lg sm:text-xl font-bold tracking-widest">D • BOSS</a>
           <div className="hidden md:flex gap-8 text-xs uppercase tracking-[0.25em] text-amber-100/70">
             <a href="#about" className="hover:text-amber-300 transition">About</a>
+            <a href="#story" className="hover:text-amber-300 transition">Story</a>
             <a href="#career" className="hover:text-amber-300 transition">Career</a>
             <a href="#movies" className="hover:text-amber-300 transition">Films</a>
             <a href="#awards" className="hover:text-amber-300 transition">Awards</a>
@@ -151,18 +168,22 @@ export function Portfolio() {
             className="space-y-5 text-amber-100/80 leading-relaxed"
           >
             <p className="text-lg">
-              Born Darshan Thoogudeepa, the <span className="text-amber-300 font-semibold">Challenging Star</span> rose
-              from the lanes of Mysuru to become one of the most celebrated faces of Kannada cinema.
+              Born <span className="text-amber-300 font-semibold">Hemanth Kumar</span> on 16 February 1977,
+              the son of legendary character actor Thoogudeepa Srinivas grew up inside Kannada cinema —
+              not in luxury, but in its hard work, stress and uncertainty.
             </p>
             <p>
-              With a career spanning over two decades and 50+ films, he has redefined mass entertainment in Sandalwood —
-              blending raw intensity with heartfelt emotion. Known affectionately as <span className="text-amber-300">D-Boss</span> by
-              his army of fans, his films are cultural events.
+              Rejected as "too rough" to be a hero, he fought through small TV roles and behind-the-scenes
+              work until <em>Majestic</em> (2002) detonated theatres and turned him into the
+              <span className="text-amber-300"> Challenging Star</span>. Today his army calls him
+              <span className="text-amber-300"> D-Boss</span>, and his releases are festivals across Karnataka.
             </p>
             <p>
-              From the cult <em>Majestic</em> to the record-shattering <em>Kaatera</em>, every role is a reminder of
-              what star power truly means.
+              From <em>Kariya</em> and <em>Kalasipalya</em> to <em>Sangolli Rayanna</em>,
+              <em> Kurukshetra</em>, <em>Roberrt</em> and the record-shattering <em>Kaatera</em> —
+              every role is a reminder of what star power truly means.
             </p>
+
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-amber-500/15">
               <div><div className="font-display text-3xl gold-gradient font-bold">50+</div><div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">Films</div></div>
               <div><div className="font-display text-3xl gold-gradient font-bold">20+</div><div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">Years</div></div>
@@ -172,20 +193,48 @@ export function Portfolio() {
         </div>
       </Section>
 
+      {/* STORY — chapters */}
+      <Section id="story" className="bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+        <SectionTitle eyebrow="THE JOURNEY" title="Chapters of a Legend" />
+        <div className="grid md:grid-cols-2 gap-6">
+          {chapters.map((c, i) => (
+            <motion.article
+              key={c.n}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.6, delay: (i % 2) * 0.1 }}
+              className="group relative p-8 rounded-lg border border-amber-500/20 bg-black/40 hover:border-amber-400/60 hover:-translate-y-1 transition overflow-hidden"
+            >
+              <div className="absolute -top-6 -right-2 font-display text-[6rem] leading-none text-amber-400/10 group-hover:text-amber-400/20 transition">
+                {c.n}
+              </div>
+              <div className="relative">
+                <div className="text-xs uppercase tracking-[0.4em] text-amber-300/70">Chapter {c.n}</div>
+                <h3 className="font-display gold-gradient text-2xl sm:text-3xl mt-3">{c.title}</h3>
+                <p className="text-amber-100/70 mt-4 leading-relaxed">{c.body}</p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </Section>
+
       {/* CAREER */}
-      <Section id="career" className="bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+      <Section id="career">
         <SectionTitle eyebrow="MILESTONES" title="Career Highlights" />
         <div className="relative">
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-amber-500/40 to-transparent" />
           {[
-            { y: "2001", t: "Debut", d: "Stepped into Kannada cinema with Majestic, an instant cult hit." },
-            { y: "2006", t: "Romantic Storm", d: "Jothe Jotheyali wins hearts across Karnataka." },
-            { y: "2014", t: "Mythological Marvel", d: "Brahma & Brindavana — back-to-back blockbusters." },
-            { y: "2019", t: "Yajamana", d: "A box office tornado, cementing his pan-Karnataka dominance." },
-            { y: "2023", t: "Kaatera", d: "Period action drama becomes the biggest Kannada hit." },
+            { y: "2002", t: "Majestic", d: "Debut as lead — a rugged mass character explodes onto theatres and the D-Boss era is born." },
+            { y: "2003", t: "Kariya", d: "Mass action smash — establishes him as the next big Kannada hero." },
+            { y: "2005", t: "Anna Thangi", d: "Emotional family drama proves he is far more than an action star." },
+            { y: "2012", t: "Sangolli Rayanna", d: "Historical war epic — patriotism, warrior energy and pan-Karnataka respect." },
+            { y: "2019", t: "Kurukshetra", d: "Bold turn as Duryodhana — royal screen presence in a mythological scale." },
+            { y: "2021", t: "Roberrt", d: "Post-pandemic blockbuster carrying a powerful father–son emotion." },
+            { y: "2023", t: "Kaatera", d: "Rural emotional storm shatters Kannada box office records." },
           ].map((m, i) => (
             <motion.div
-              key={m.y}
+              key={m.y + m.t}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -203,6 +252,7 @@ export function Portfolio() {
           ))}
         </div>
       </Section>
+
 
       {/* MOVIES */}
       <Section id="movies">
@@ -224,6 +274,7 @@ export function Portfolio() {
               <div className="absolute inset-x-0 bottom-0 p-4 translate-y-2 group-hover:translate-y-0 transition">
                 <div className="font-display text-amber-200 text-lg leading-tight">{m.title}</div>
                 <div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">{m.year}</div>
+                <div className="text-[11px] text-amber-100/60 mt-2 opacity-0 group-hover:opacity-100 transition">{m.note}</div>
               </div>
               <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition">
                 <Play className="w-8 h-8 text-amber-300 fill-amber-300/30" />
