@@ -9,38 +9,64 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as FanArmyRouteImport } from './routes/fan-army'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FanArmyAdminRouteImport } from './routes/fan-army.admin'
 
+const FanArmyRoute = FanArmyRouteImport.update({
+  id: '/fan-army',
+  path: '/fan-army',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FanArmyAdminRoute = FanArmyAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => FanArmyRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/fan-army': typeof FanArmyRouteWithChildren
+  '/fan-army/admin': typeof FanArmyAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/fan-army': typeof FanArmyRouteWithChildren
+  '/fan-army/admin': typeof FanArmyAdminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/fan-army': typeof FanArmyRouteWithChildren
+  '/fan-army/admin': typeof FanArmyAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/fan-army' | '/fan-army/admin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/fan-army' | '/fan-army/admin'
+  id: '__root__' | '/' | '/fan-army' | '/fan-army/admin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FanArmyRoute: typeof FanArmyRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/fan-army': {
+      id: '/fan-army'
+      path: '/fan-army'
+      fullPath: '/fan-army'
+      preLoaderRoute: typeof FanArmyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +74,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fan-army/admin': {
+      id: '/fan-army/admin'
+      path: '/admin'
+      fullPath: '/fan-army/admin'
+      preLoaderRoute: typeof FanArmyAdminRouteImport
+      parentRoute: typeof FanArmyRoute
+    }
   }
 }
 
+interface FanArmyRouteChildren {
+  FanArmyAdminRoute: typeof FanArmyAdminRoute
+}
+
+const FanArmyRouteChildren: FanArmyRouteChildren = {
+  FanArmyAdminRoute: FanArmyAdminRoute,
+}
+
+const FanArmyRouteWithChildren =
+  FanArmyRoute._addFileChildren(FanArmyRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FanArmyRoute: FanArmyRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
