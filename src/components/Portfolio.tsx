@@ -99,6 +99,7 @@ export function Portfolio() {
             <a href="#movies" className="hover:text-amber-300 transition">Films</a>
             <a href="#awards" className="hover:text-amber-300 transition">Awards</a>
             <a href="#fans" className="hover:text-amber-300 transition">Fans</a>
+            <a href="/fan-army" className="text-red-400 hover:text-amber-300 transition font-bold">Fan Army</a>
             <a href="#contact" className="hover:text-amber-300 transition">Contact</a>
           </div>
         </div>
