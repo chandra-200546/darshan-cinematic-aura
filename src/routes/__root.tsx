@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
 
@@ -99,6 +100,43 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    const removeLovableElements = () => {
+      const selectors = [
+        "#lovable-badge",
+        "[id*='lovable']",
+        "[class*='lovable']",
+        "a[href*='lovable.dev']",
+        "a[href*='lovable.app']",
+      ];
+
+      selectors.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((node) => {
+          if (node instanceof HTMLElement) {
+            const text = (node.textContent || "").toLowerCase();
+            const href =
+              node instanceof HTMLAnchorElement ? (node.href || "").toLowerCase() : "";
+
+            if (
+              selector === "#lovable-badge" ||
+              text.includes("edit with lovable") ||
+              href.includes("lovable.dev") ||
+              href.includes("lovable.app") ||
+              node.id.toLowerCase().includes("lovable") ||
+              node.className.toString().toLowerCase().includes("lovable")
+            ) {
+              node.remove();
+            }
+          }
+        });
+      });
+    };
+
+    removeLovableElements();
+    const intervalId = window.setInterval(removeLovableElements, 1000);
+    return () => window.clearInterval(intervalId);
+  }, []);
+
   return (
     <html lang="en">
       <head>
