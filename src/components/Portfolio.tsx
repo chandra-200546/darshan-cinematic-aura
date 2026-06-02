@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Film, Award, Heart, Mail, Star, Play } from "lucide-react";
+import { Film, Award, Heart, Mail, Star, Play, Gauge, Zap, Timer, IndianRupee } from "lucide-react";
 
 const SocialIcon = ({ d, label }: { d: string; label: string }) => (
   <svg viewBox="0 0 24 24" aria-label={label} className="w-5 h-5 fill-current"><path d={d} /></svg>
@@ -15,6 +15,19 @@ import d2 from "@/assets/darshan-2.png";
 import d3 from "@/assets/darshan-3.png";
 import d4 from "@/assets/darshan-4.png";
 import d5 from "@/assets/darshan-5.png";
+import defender from "@/assets/cars/range-rover-defender.webp";
+import aventador from "@/assets/cars/lamborghini-aventador-s.webp";
+import vellfire from "@/assets/cars/toyota-vellfire.webp";
+import jaguar from "@/assets/cars/jaguar-xk.webp";
+import mustang from "@/assets/cars/ford-mustang.webp";
+import cayenne from "@/assets/cars/porsche-cayenne.webp";
+import vogue from "@/assets/cars/range-rover-vogue.webp";
+import countryman from "@/assets/cars/mini-cooper-countryman.webp";
+import endeavour from "@/assets/cars/customized-ford-endeavour.webp";
+import fortuner from "@/assets/cars/toyota-fortuner.webp";
+import wrangler from "@/assets/cars/jeep-wrangler.webp";
+import bmw from "@/assets/cars/bmw-520d.webp";
+import audi from "@/assets/cars/audi-q7.webp";
 
 const movies = [
   { title: "Majestic", year: "2002", poster: d1, note: "The film that birthed D-Boss" },
@@ -52,6 +65,33 @@ const achievements = [
   { year: "2019", title: "Kurukshetra — Duryodhana", desc: "Bold mythological role praised for royal screen presence" },
   { year: "2023", title: "Box Office King", desc: "Kaatera shatters Kannada box office records" },
   { year: "2023", title: "Kaatera Storm", desc: "Rural emotional drama connects deeply with farmers and villages" },
+];
+
+type Car = {
+  name: string;
+  image?: string;
+  price?: string;
+  power?: string;
+  torque?: string;
+  topSpeed?: string;
+  color?: string;
+};
+
+const cars: Car[] = [
+  { name: "Range Rover Defender", image: defender, price: "1.2 Crore", power: "400 bhp", torque: "650 Nm", topSpeed: "240 km/h" },
+  { name: "Lamborghini Aventador S", image: aventador, price: "6.5 Crore", power: "700 bhp", torque: "690 Nm", topSpeed: "349 km/h", color: "White" },
+  { name: "Toyota Vellfire", image: vellfire, price: "85 Lakh", power: "115 bhp", torque: "198 Nm", topSpeed: "170 km/h" },
+  { name: "Jaguar XK", image: jaguar, price: "88 Lakh", power: "300 bhp", torque: "680 Nm", topSpeed: "280 km/h" },
+  { name: "Ford Mustang", image: mustang, price: "75 Lakh", power: "396 bhp", torque: "515 Nm", topSpeed: "250 km/h" },
+  { name: "Lamborghini Urus", price: "1.5 Crore", power: "550 bhp", torque: "770 Nm", topSpeed: "300 km/h" },
+  { name: "Porsche Cayenne", image: cayenne, price: "2.75 Crore", power: "335 bhp", torque: "730 Nm", topSpeed: "209 km/h" },
+  { name: "Range Rover Vogue", image: vogue, price: "38 Lakh", power: "189 bhp", torque: "230 Nm", topSpeed: "210 km/h" },
+  { name: "Mini Cooper Countryman", image: countryman, price: "42 Lakh", power: "197 bhp", torque: "420 Nm", topSpeed: "180 km/h" },
+  { name: "Customized Ford Endeavour", image: endeavour, price: "38 Lakh", power: "174 bhp", torque: "420 Nm", topSpeed: "180 km/h" },
+  { name: "Toyota Fortuner", image: fortuner, price: "53 Lakh", power: "263 bhp", torque: "400 Nm", topSpeed: "180 km/h" },
+  { name: "Jeep Wrangler", image: wrangler, price: "61 Lakh", power: "187 bhp", torque: "400 Nm", topSpeed: "238 km/h" },
+  { name: "BMW 520D", image: bmw, price: "85.52 Lakh", power: "187 bhp", torque: "400 Nm", topSpeed: "238 km/h" },
+  { name: "Audi Q7", image: audi },
 ];
 
 const fanQuotes = [
@@ -97,6 +137,7 @@ export function Portfolio() {
             <a href="#story" className="hover:text-amber-300 transition">Story</a>
             <a href="#career" className="hover:text-amber-300 transition">Career</a>
             <a href="#movies" className="hover:text-amber-300 transition">Films</a>
+            <a href="#cars" className="hover:text-amber-300 transition">Cars</a>
             <a href="#awards" className="hover:text-amber-300 transition">Awards</a>
             <a href="#fans" className="hover:text-amber-300 transition">Fans</a>
             <a href="/fan-army" className="text-red-400 hover:text-amber-300 transition font-bold">Fan Army</a>
@@ -285,6 +326,71 @@ export function Portfolio() {
                 <Play className="w-8 h-8 text-amber-300 fill-amber-300/30" />
               </div>
             </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* CAR COLLECTION */}
+      <Section id="cars" className="bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+        <SectionTitle eyebrow="THE GARAGE" title="Darshan's Car Collection" />
+        <p className="mx-auto -mt-8 mb-14 max-w-3xl text-center text-sm leading-relaxed text-amber-100/60 sm:text-base">
+          A closer look at the machines associated with D-Boss: luxury cruisers, rugged off-roaders,
+          and pure performance icons.
+        </p>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {cars.map((car, i) => (
+            <motion.article
+              key={car.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.55, delay: (i % 3) * 0.08 }}
+              className="group overflow-hidden rounded-lg border border-amber-500/20 bg-black/50 hover:-translate-y-1 hover:border-amber-400/60 transition"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-950/50 via-black to-black">
+                {car.image ? (
+                  <img
+                    src={car.image}
+                    alt={car.name}
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105 group-hover:brightness-110"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center px-8 text-center">
+                    <div>
+                      <div className="font-display gold-gradient text-3xl font-bold">URUS</div>
+                      <div className="mt-3 text-[10px] uppercase tracking-[0.35em] text-amber-100/45">Image coming soon</div>
+                    </div>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <div className="text-[10px] uppercase tracking-[0.35em] text-amber-300/70">Garage {String(i + 1).padStart(2, "0")}</div>
+                  <h3 className="font-display mt-1 text-xl font-bold text-amber-100">{car.name}</h3>
+                  {car.color && <div className="mt-1 text-xs uppercase tracking-widest text-amber-200/70">{car.color}</div>}
+                </div>
+              </div>
+              {car.price ? (
+                <div className="grid grid-cols-2 gap-px bg-amber-500/15">
+                  {[
+                    { icon: IndianRupee, label: "Price", value: car.price },
+                    { icon: Zap, label: "Power", value: car.power },
+                    { icon: Gauge, label: "Torque", value: car.torque },
+                    { icon: Timer, label: "Top Speed", value: car.topSpeed },
+                  ].map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="bg-black/90 p-4">
+                      <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-amber-100/45">
+                        <Icon className="h-3.5 w-3.5 text-amber-400" /> {label}
+                      </div>
+                      <div className="mt-2 text-sm font-semibold text-amber-100">{value}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-5 text-xs uppercase tracking-[0.25em] text-amber-100/50">
+                  Collection details awaited
+                </div>
+              )}
+            </motion.article>
           ))}
         </div>
       </Section>
