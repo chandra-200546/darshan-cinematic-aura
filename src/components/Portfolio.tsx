@@ -215,19 +215,49 @@ export function Portfolio() {
           >
             <p className="text-lg">
               Born <span className="text-amber-300 font-semibold">Hemanth Kumar</span> on 16 February 1977,
-              the son of legendary character actor Thoogudeepa Srinivas grew up inside Kannada cinema —
-              not in luxury, but in its hard work, stress and uncertainty.
+              the son of legendary character actor Thoogudeepa Srinivas, he did not grow up inside Kannada
+              cinema with comfort. He grew up watching its pressure, pain, rejection, and silent sacrifices.
             </p>
             <p>
-              Rejected as "too rough" to be a hero, he fought through small TV roles and behind-the-scenes
-              work until <em>Majestic</em> (2002) detonated theatres and turned him into the
-              <span className="text-amber-300"> Challenging Star</span>. Today his army calls him
-              <span className="text-amber-300"> D-Boss</span>, and his releases are festivals across Karnataka.
+              Cinema was around him, but success was never handed to him. He carried a famous surname,
+              but he still had to fight like an outsider.
+            </p>
+            <p>
+              Rejected as "too rough" to become a hero, ignored by many, and doubted by people who could
+              not see the fire inside him, he kept moving. Small TV roles, behind-the-scenes work, endless
+              waiting, silent humiliation, and years of struggle became his training ground.
+            </p>
+            <p>
+              Then came <em>Majestic</em> (2002). It was not just a movie. It was the moment Kannada cinema
+              witnessed the rise of a man who refused to break.
+            </p>
+            <p>
+              From that day, Darshan was no longer just an actor's son. He became the
+              <span className="text-amber-300"> Challenging Star</span>, a name earned through pain,
+              patience, and pure mass power.
+            </p>
+            <p>
+              His journey from rejection to celebration is the reason millions connect with him. People do
+              not just see a star in him. They see struggle, attitude, loyalty, and survival.
+            </p>
+            <p>
+              Today, his army calls him <span className="text-amber-300">D-Boss</span>, not just out of
+              fandom, but out of emotion. His releases are not ordinary film releases; they become festivals
+              across Karnataka. Theatres turn into celebrations, fans turn into family, and every poster
+              becomes a symbol of loyalty.
             </p>
             <p>
               From <em>Kariya</em> and <em>Kalasipalya</em> to <em>Sangolli Rayanna</em>,
-              <em> Kurukshetra</em>, <em>Roberrt</em> and the record-shattering <em>Kaatera</em> —
-              every role is a reminder of what star power truly means.
+              <em> Kurukshetra</em>, <em>Roberrt</em>, and the record-shattering <em>Kaatera</em>, every role
+              reminds us that real stardom is not created overnight.
+            </p>
+            <p className="border-l border-amber-400/40 pl-5 text-amber-200/90">
+              It is built through rejection. It is built through struggle. It is built through pain that
+              the world never sees.
+            </p>
+            <p>
+              Darshan's story is not just about becoming a superstar. It is about proving that even when
+              the world says "you can't," destiny waits for the one who says "watch me."
             </p>
 
             <div className="grid grid-cols-3 gap-6 pt-6 border-t border-amber-500/15">
