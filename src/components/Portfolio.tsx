@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { Film, Award, Heart, Mail, Star, Play, Gauge, Zap, Timer, IndianRupee } from "lucide-react";
+import { filmography, type FilmographyItem } from "@/lib/filmography";
 
 const SocialIcon = ({ d, label }: { d: string; label: string }) => (
   <svg viewBox="0 0 24 24" aria-label={label} className="w-5 h-5 fill-current"><path d={d} /></svg>
@@ -29,24 +30,6 @@ import fortuner from "@/assets/cars/toyota-fortuner.webp";
 import wrangler from "@/assets/cars/jeep-wrangler.webp";
 import bmw from "@/assets/cars/bmw-520d.webp";
 import audi from "@/assets/cars/audi-q7.webp";
-
-const movies = [
-  { title: "Majestic", year: "2002", poster: d1, note: "The film that birthed D-Boss" },
-  { title: "Kariya", year: "2003", poster: d2, note: "Mass action breakthrough" },
-  { title: "Kalasipalya", year: "2004", poster: d3, note: "Rugged blockbuster" },
-  { title: "Anna Thangi", year: "2005", poster: d4, note: "Emotional family drama" },
-  { title: "Gaja", year: "2008", poster: d5, note: "Mass entertainer" },
-  { title: "Saarathi", year: "2011", poster: d1, note: "Romantic action comeback" },
-  { title: "Sangolli Rayanna", year: "2012", poster: d2, note: "Historical war epic" },
-  { title: "Bulbul", year: "2013", poster: d3, note: "Stylish romance" },
-  { title: "Ambareesha", year: "2014", poster: d4, note: "Tribute commercial hit" },
-  { title: "Mr. Airavata", year: "2015", poster: d5, note: "Police mass action" },
-  { title: "Chakravarthy", year: "2017", poster: d1, note: "Gangster drama" },
-  { title: "Kurukshetra", year: "2019", poster: d2, note: "Mythological epic — Duryodhana" },
-  { title: "Roberrt", year: "2021", poster: d3, note: "Post-pandemic blockbuster" },
-  { title: "Kaatera", year: "2023", poster: d4, note: "Rural emotional storm" },
-  { title: "The Devil", year: "2025", poster: d5, note: "Dark mass spectacle" },
-];
 
 const chapters = [
   { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
@@ -120,6 +103,103 @@ const SectionTitle = ({ eyebrow, title }: { eyebrow: string; title: string }) =>
     <div className="mx-auto mt-6 h-px w-32 gold-line" />
   </motion.div>
 );
+
+const posterThemes = [
+  ["#09090b", "#7c2d12", "#f59e0b"],
+  ["#020617", "#1d4ed8", "#fde68a"],
+  ["#111827", "#7f1d1d", "#fbbf24"],
+  ["#0f172a", "#581c87", "#facc15"],
+  ["#111111", "#166534", "#fef3c7"],
+  ["#1c1917", "#92400e", "#fcd34d"],
+];
+
+const escapeSvg = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+const posterTitleLines = (title: string) => {
+  const words = title.split(" ");
+  const lines: string[] = [];
+  let current = "";
+
+  words.forEach((word) => {
+    const next = current ? `${current} ${word}` : word;
+    if (next.length > 17 && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = next;
+    }
+  });
+
+  if (current) lines.push(current);
+  return lines.slice(0, 3);
+};
+
+const createGeneratedPoster = (movie: FilmographyItem, index: number) => {
+  const [dark, mid, gold] = posterThemes[index % posterThemes.length];
+  const titleLines = posterTitleLines(movie.title);
+  const title = titleLines
+    .map(
+      (line, lineIndex) =>
+        `<tspan x="48" y="${330 + lineIndex * 48}">${escapeSvg(line.toUpperCase())}</tspan>`,
+    )
+    .join("");
+  const role = escapeSvg(movie.role.toUpperCase());
+  const verdict = escapeSvg(movie.verdict.toUpperCase());
+  const initials = escapeSvg(
+    movie.title
+      .split(/\s+/)
+      .map((word) => word[0])
+      .join("")
+      .slice(0, 3)
+      .toUpperCase(),
+  );
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${dark}"/>
+      <stop offset="52%" stop-color="${mid}"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+    <radialGradient id="flare" cx="50%" cy="28%" r="58%">
+      <stop offset="0%" stop-color="${gold}" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="${gold}" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="${gold}" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.14"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="800" height="1200" fill="url(#bg)"/>
+  <rect width="800" height="1200" fill="url(#flare)"/>
+  <rect width="800" height="1200" filter="url(#grain)" opacity="0.25"/>
+  <circle cx="650" cy="145" r="260" fill="none" stroke="${gold}" stroke-opacity="0.22" stroke-width="3"/>
+  <circle cx="135" cy="905" r="330" fill="none" stroke="${gold}" stroke-opacity="0.12" stroke-width="2"/>
+  <path d="M83 840 C210 675 308 662 438 492 C555 338 617 199 734 98" fill="none" stroke="${gold}" stroke-opacity="0.45" stroke-width="9"/>
+  <path d="M73 862 C231 701 339 688 482 518 C594 385 671 212 759 137" fill="none" stroke="#fff7ed" stroke-opacity="0.2" stroke-width="2"/>
+  <text x="48" y="92" fill="${gold}" font-family="Georgia, serif" font-size="34" font-weight="700" letter-spacing="9">${escapeSvg(movie.year)}</text>
+  <text x="48" y="158" fill="#fff7ed" opacity="0.72" font-family="Arial, sans-serif" font-size="20" letter-spacing="5">D-BOSS CINEMATIC FILE</text>
+  <text x="400" y="610" text-anchor="middle" fill="${gold}" opacity="0.18" font-family="Georgia, serif" font-size="225" font-weight="700">${initials}</text>
+  <text fill="#fff7ed" font-family="Georgia, serif" font-size="42" font-weight="700" letter-spacing="2">${title}</text>
+  <text x="48" y="505" fill="${gold}" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="4">ROLE</text>
+  <text x="48" y="542" fill="#fff7ed" opacity="0.88" font-family="Arial, sans-serif" font-size="26" font-weight="700">${role}</text>
+  <rect x="48" y="960" width="704" height="112" rx="26" fill="#000" opacity="0.48" stroke="${gold}" stroke-opacity="0.35"/>
+  <text x="82" y="1008" fill="${gold}" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="5">VERDICT</text>
+  <text x="82" y="1048" fill="#fff7ed" font-family="Arial, sans-serif" font-size="24" font-weight="700">${verdict}</text>
+  <text x="48" y="1140" fill="#fff7ed" opacity="0.42" font-family="Arial, sans-serif" font-size="16" letter-spacing="7">AI GENERATED TRIBUTE POSTER</text>
+</svg>`;
+
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+};
 
 export function Portfolio() {
   return (
@@ -333,11 +413,15 @@ export function Portfolio() {
 
       {/* MOVIES */}
       <Section id="movies">
-        <SectionTitle eyebrow="FILMOGRAPHY" title="Movie Gallery" />
+        <SectionTitle eyebrow="FILMOGRAPHY" title="Complete Movie Gallery" />
+        <p className="mx-auto -mt-8 mb-14 max-w-3xl text-center text-sm leading-relaxed text-amber-100/60 sm:text-base">
+          A full career timeline from early appearances to modern blockbusters, each presented with a
+          unique AI-generated cinematic tribute poster.
+        </p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {movies.map((m, i) => (
+          {filmography.map((m, i) => (
             <motion.div
-              key={i}
+              key={`${m.year}-${m.title}-${i}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -345,13 +429,16 @@ export function Portfolio() {
               className="group relative overflow-hidden rounded-lg border border-amber-500/15 bg-black"
             >
               <div className="aspect-[2/3] overflow-hidden">
-                <img src={m.poster} alt={m.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:brightness-110" />
+                <img src={createGeneratedPoster(m, i)} alt={`${m.title} AI-generated poster`} className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:brightness-110" />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90" />
               <div className="absolute inset-x-0 bottom-0 p-4 translate-y-2 group-hover:translate-y-0 transition">
                 <div className="font-display text-amber-200 text-lg leading-tight">{m.title}</div>
-                <div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">{m.year}</div>
-                <div className="text-[11px] text-amber-100/60 mt-2 opacity-0 group-hover:opacity-100 transition">{m.note}</div>
+                <div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">{m.year} / {m.role}</div>
+                <div className="mt-2 inline-flex rounded-full border border-amber-400/30 px-2 py-1 text-[9px] uppercase tracking-[0.2em] text-amber-300/80">
+                  {m.verdict}
+                </div>
+                <div className="line-clamp-3 text-[11px] leading-relaxed text-amber-100/65 mt-2 opacity-0 group-hover:opacity-100 transition">{m.about}</div>
               </div>
               <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition">
                 <Play className="w-8 h-8 text-amber-300 fill-amber-300/30" />
