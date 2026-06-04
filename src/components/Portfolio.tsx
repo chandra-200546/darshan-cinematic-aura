@@ -1,15 +1,12 @@
 import { motion } from "motion/react";
-import { Film, Award, Heart, Mail, Star, Play, Gauge, Zap, Timer, IndianRupee } from "lucide-react";
+import { Film, Award, Heart, Star, Play, Gauge, Zap, Timer, IndianRupee } from "lucide-react";
 import { filmography, type FilmographyItem } from "@/lib/filmography";
 
 const SocialIcon = ({ d, label }: { d: string; label: string }) => (
   <svg viewBox="0 0 24 24" aria-label={label} className="w-5 h-5 fill-current"><path d={d} /></svg>
 );
 const SOCIALS = {
-  instagram: "M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.43.36 1.06.41 2.23.06 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.43.16-1.06.36-2.23.41-1.25.06-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.43-.36-1.06-.41-2.23C2.21 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.43-.16 1.06-.36 2.23-.41C8.4 2.21 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.52.01-4.76.07-.99.05-1.53.21-1.89.35-.47.18-.81.4-1.17.76s-.58.7-.76 1.17c-.14.36-.3.9-.35 1.89C3.01 9.48 3 9.85 3 13s.01 3.52.07 4.76c.05.99.21 1.53.35 1.89.18.47.4.81.76 1.17s.7.58 1.17.76c.36.14.9.3 1.89.35 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c.99-.05 1.53-.21 1.89-.35.47-.18.81-.4 1.17-.76s.58-.7.76-1.17c.14-.36.3-.9.35-1.89.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.05-.99-.21-1.53-.35-1.89a3.2 3.2 0 0 0-.76-1.17 3.2 3.2 0 0 0-1.17-.76c-.36-.14-.9-.3-1.89-.35C15.52 4.01 15.15 4 12 4zm0 3.06A4.94 4.94 0 1 1 12 17a4.94 4.94 0 0 1 0-9.94zm0 1.8A3.14 3.14 0 1 0 12 15.2a3.14 3.14 0 0 0 0-6.34zm5.14-2.1a1.16 1.16 0 1 1 0 2.32 1.16 1.16 0 0 1 0-2.32z",
-  twitter: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
-  youtube: "M23.5 6.5a3 3 0 0 0-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4A3 3 0 0 0 .5 6.5C.1 8.4.1 12 .1 12s0 3.6.4 5.5a3 3 0 0 0 2.1 2.1c1.9.4 9.4.4 9.4.4s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1c.4-1.9.4-5.5.4-5.5s0-3.6-.4-5.5zM9.6 15.6V8.4l6.3 3.6z",
-  facebook: "M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z",
+  x: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
 };
 import d1 from "@/assets/darshan-1.png";
 import d2 from "@/assets/darshan-2.png";
@@ -583,27 +580,15 @@ export function Portfolio() {
             Be a part of the D-Boss family. Share love, share memories, and celebrate the Challenging Star.
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
-            {[
-              { d: SOCIALS.instagram, label: "Instagram" },
-              { d: SOCIALS.twitter, label: "Twitter" },
-              { d: SOCIALS.youtube, label: "YouTube" },
-              { d: SOCIALS.facebook, label: "Facebook" },
-            ].map(({ d, label }) => (
-              <a
-                key={label}
-                href="#"
-                aria-label={label}
-                className="group w-14 h-14 rounded-full border border-amber-500/30 flex items-center justify-center text-amber-300 hover:bg-amber-400 hover:border-amber-400 hover:text-black transition"
-              >
-                <SocialIcon d={d} label={label} />
-              </a>
-            ))}
             <a
-              href="mailto:fan@dboss.test"
-              aria-label="Email"
-              className="group w-14 h-14 rounded-full border border-amber-500/30 flex items-center justify-center text-amber-300 hover:bg-amber-400 hover:border-amber-400 hover:text-black transition"
+              href="https://x.com/chandra__dev"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Follow on X"
+              className="group inline-flex items-center gap-3 rounded-full border border-amber-500/30 px-6 py-4 text-amber-300 hover:bg-amber-400 hover:border-amber-400 hover:text-black transition"
             >
-              <Mail className="w-5 h-5" />
+              <SocialIcon d={SOCIALS.x} label="X" />
+              <span className="text-sm font-semibold uppercase tracking-[0.25em]">Follow on X</span>
             </a>
           </div>
           <div className="mt-16 pt-10 border-t border-amber-500/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs uppercase tracking-widest text-amber-100/40">
