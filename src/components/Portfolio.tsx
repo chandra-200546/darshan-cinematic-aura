@@ -27,6 +27,17 @@ import fortuner from "@/assets/cars/toyota-fortuner.webp";
 import wrangler from "@/assets/cars/jeep-wrangler.webp";
 import bmw from "@/assets/cars/bmw-520d.webp";
 import audi from "@/assets/cars/audi-q7.webp";
+import wildlife1 from "@/assets/wildlife/darshan-wildlife-01.png";
+import wildlife2 from "@/assets/wildlife/darshan-wildlife-02.png";
+import wildlife3 from "@/assets/wildlife/darshan-wildlife-03.png";
+import wildlife4 from "@/assets/wildlife/darshan-wildlife-04.png";
+import wildlife5 from "@/assets/wildlife/darshan-wildlife-05.png";
+import wildlife6 from "@/assets/wildlife/darshan-wildlife-06.png";
+import wildlife7 from "@/assets/wildlife/darshan-wildlife-07.png";
+import wildlife8 from "@/assets/wildlife/darshan-wildlife-08.png";
+import wildlife9 from "@/assets/wildlife/darshan-wildlife-09.png";
+import wildlife10 from "@/assets/wildlife/darshan-wildlife-10.png";
+import wildlife11 from "@/assets/wildlife/darshan-wildlife-11.png";
 
 const chapters = [
   { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
@@ -46,6 +57,27 @@ const achievements = [
   { year: "2019", title: "Kurukshetra — Duryodhana", desc: "Bold mythological role praised for royal screen presence" },
   { year: "2023", title: "Box Office King", desc: "Kaatera shatters Kannada box office records" },
   { year: "2023", title: "Kaatera Storm", desc: "Rural emotional drama connects deeply with farmers and villages" },
+];
+
+const wildlifeImages = [
+  { image: wildlife1, alt: "Darshan with an elephant" },
+  { image: wildlife2, alt: "Darshan with cattle" },
+  { image: wildlife3, alt: "Darshan with a white horse" },
+  { image: wildlife4, alt: "Darshan and family with horses" },
+  { image: wildlife5, alt: "Darshan with a black horse" },
+  { image: wildlife6, alt: "Darshan with dogs" },
+  { image: wildlife7, alt: "Darshan with a bull" },
+  { image: wildlife8, alt: "Darshan farmhouse entrance surrounded by greenery" },
+  { image: wildlife9, alt: "Darshan feeding a white horse" },
+  { image: wildlife10, alt: "Darshan with cattle at a farm" },
+  { image: wildlife11, alt: "Darshan caring for a horse" },
+];
+
+const wildlifeCards = [
+  "The Animal Lover Behind the Star",
+  "A Heart That Cares Beyond Cinema",
+  "D-Boss & His Love for Wildlife",
+  "Mass Hero, Kind Heart",
 ];
 
 type Car = {
@@ -213,6 +245,7 @@ export function Portfolio() {
           <div className="hidden md:flex gap-8 text-xs uppercase tracking-[0.25em] text-amber-100/70">
             <a href="#about" className="hover:text-amber-300 transition">About</a>
             <a href="#story" className="hover:text-amber-300 transition">Story</a>
+            <a href="#wildlife" className="hover:text-amber-300 transition">Wildlife</a>
             <a href="#career" className="hover:text-amber-300 transition">Career</a>
             <a href="#movies" className="hover:text-amber-300 transition">Films</a>
             <a href="#cars" className="hover:text-amber-300 transition">Cars</a>
@@ -370,6 +403,101 @@ export function Portfolio() {
               </div>
             </motion.article>
           ))}
+        </div>
+      </Section>
+
+      {/* WILDLIFE */}
+      <Section id="wildlife">
+        <SectionTitle eyebrow="KIND HEART" title="Love Towards Animals & Wildlife" />
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr,1.05fr]">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8 }}
+            className="relative overflow-hidden rounded-2xl border border-emerald-400/20 bg-black/50 p-3 shadow-[0_0_70px_-25px_rgba(16,185,129,0.55)]"
+          >
+            <img
+              src={wildlifeImages[0].image}
+              alt={wildlifeImages[0].alt}
+              className="h-full max-h-[620px] w-full rounded-xl object-cover"
+            />
+            <div className="absolute inset-x-3 bottom-3 rounded-b-xl bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+              <p className="font-display text-2xl gold-gradient">Mass Hero, Kind Heart</p>
+              <p className="mt-2 text-sm text-amber-100/70">The softer side of D-Boss that fans carry with pride.</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="space-y-6"
+          >
+            <div className="rounded-2xl border border-amber-500/20 bg-black/45 p-7 sm:p-9">
+              <p className="text-lg leading-relaxed text-amber-100/80">
+                Beyond cinema, mass image, and box-office power, Darshan has always been connected with
+                animals, nature, and wildlife. For his fans, this side of him shows the real heart behind
+                the star.
+              </p>
+              <p className="mt-5 leading-relaxed text-amber-100/65">
+                His affection for animals is not just a public image. He has often been associated with
+                animal adoption, wildlife awareness, and support for zoos. In 2021, his appeal to fans for
+                supporting Karnataka zoos reportedly helped raise more than Rs 1 crore for nine zoos during
+                a difficult period.
+              </p>
+              <p className="mt-5 leading-relaxed text-amber-100/65">
+                Darshan's love towards animals reflects a softer and more compassionate side of his
+                personality. The same man who creates thunder inside theatres also carries deep care for
+                speechless lives.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {wildlifeCards.map((title, i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.06 }}
+                  className="rounded-xl border border-emerald-400/20 bg-emerald-950/10 p-5 text-amber-100/85"
+                >
+                  <div className="mb-3 h-px w-12 bg-emerald-300/60" />
+                  <p className="font-display text-xl text-amber-200">{title}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {wildlifeImages.slice(1).map((item, i) => (
+            <motion.figure
+              key={item.image}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: (i % 5) * 0.05 }}
+              className="group overflow-hidden rounded-xl border border-amber-500/15 bg-black/50"
+            >
+              <img
+                src={item.image}
+                alt={item.alt}
+                className="h-48 w-full object-cover transition duration-500 group-hover:scale-105 group-hover:brightness-110"
+              />
+            </motion.figure>
+          ))}
+        </div>
+
+        <div className="mx-auto mt-12 max-w-4xl rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-950/20 via-black/50 to-emerald-950/20 p-7 text-center">
+          <p className="font-display text-2xl gold-gradient">
+            Behind the roar of D-Boss, there is a heart that understands the silence of animals.
+          </p>
+          <p className="mt-4 text-amber-100/65">
+            True power is not only in action and attitude. It is also in kindness, care, and compassion.
+          </p>
         </div>
       </Section>
 
