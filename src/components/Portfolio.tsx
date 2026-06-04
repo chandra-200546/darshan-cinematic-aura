@@ -17,6 +17,7 @@ import d4 from "@/assets/darshan-4.png";
 import d5 from "@/assets/darshan-5.png";
 import defender from "@/assets/cars/range-rover-defender.webp";
 import aventador from "@/assets/cars/lamborghini-aventador-s.webp";
+import urus from "@/assets/cars/lamborghini-urus.jpg";
 import vellfire from "@/assets/cars/toyota-vellfire.webp";
 import jaguar from "@/assets/cars/jaguar-xk.webp";
 import mustang from "@/assets/cars/ford-mustang.webp";
@@ -83,7 +84,7 @@ const cars: Car[] = [
   { name: "Toyota Vellfire", image: vellfire, price: "85 Lakh", power: "115 bhp", torque: "198 Nm", topSpeed: "170 km/h" },
   { name: "Jaguar XK", image: jaguar, price: "88 Lakh", power: "300 bhp", torque: "680 Nm", topSpeed: "280 km/h" },
   { name: "Ford Mustang", image: mustang, price: "75 Lakh", power: "396 bhp", torque: "515 Nm", topSpeed: "250 km/h" },
-  { name: "Lamborghini Urus", price: "1.5 Crore", power: "550 bhp", torque: "770 Nm", topSpeed: "300 km/h" },
+  { name: "Lamborghini Urus", image: urus, price: "1.5 Crore", power: "550 bhp", torque: "770 Nm", topSpeed: "300 km/h" },
   { name: "Porsche Cayenne", image: cayenne, price: "2.75 Crore", power: "335 bhp", torque: "730 Nm", topSpeed: "209 km/h" },
   { name: "Range Rover Vogue", image: vogue, price: "38 Lakh", power: "189 bhp", torque: "230 Nm", topSpeed: "210 km/h" },
   { name: "Mini Cooper Countryman", image: countryman, price: "42 Lakh", power: "197 bhp", torque: "420 Nm", topSpeed: "180 km/h" },
