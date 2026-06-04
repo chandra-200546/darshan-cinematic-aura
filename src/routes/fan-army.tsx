@@ -255,7 +255,7 @@ function FanArmyPage() {
 
       {/* KARNATAKA MAP */}
       <Section title="Karnataka Fan Map" eyebrow="District-wise Army">
-        <div className="grid lg:grid-cols-[1.3fr,1fr] gap-8 items-center">
+        <div className="mx-auto max-w-4xl">
           <div className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-black/60 p-3 shadow-[0_0_60px_-20px_rgba(245,158,11,0.45)]">
             <img
               src={fanArmyKarnataka}
@@ -286,14 +286,6 @@ function FanArmyPage() {
                 );
               })}
             </svg>}
-          </div>
-          <div className="rounded-2xl border border-amber-500/20 bg-black/60 p-6">
-            <div className="flex items-center gap-2 text-amber-300 mb-3"><MapPin size={18} /> <span className="font-display text-xl">{activeDistrict ?? "Choose a district"}</span></div>
-            {activeDistrict ? (
-              <DistrictDetails district={activeDistrict} posts={posts.filter((p) => p.district === activeDistrict)} />
-            ) : (
-              <p className="text-zinc-400 text-sm">Tap any glowing marker to see fans, clubs and tributes from that district.</p>
-            )}
           </div>
         </div>
       </Section>
