@@ -9,6 +9,7 @@ import { DISTRICTS, DISTRICT_POSITIONS, KARNATAKA_PATH, POST_TYPE_LABEL, nextBir
 import { Heart, MessageCircle, Share2, Flame, LogOut, Crown, Trophy, Cake, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import fanArmyKarnataka from "@/assets/fan-army-karnataka.png";
 
 export const Route = createFileRoute("/fan-army")({
   head: () => ({ meta: [
@@ -255,8 +256,13 @@ function FanArmyPage() {
       {/* KARNATAKA MAP */}
       <Section title="Karnataka Fan Map" eyebrow="District-wise Army">
         <div className="grid lg:grid-cols-[1.3fr,1fr] gap-8 items-center">
-          <div className="relative rounded-2xl border border-amber-500/20 bg-black/60 p-4">
-            <svg viewBox="0 0 1000 1000" className="w-full h-auto">
+          <div className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-black/60 p-3 shadow-[0_0_60px_-20px_rgba(245,158,11,0.45)]">
+            <img
+              src={fanArmyKarnataka}
+              alt="DBoss Fan Army Karnataka tribute collage"
+              className="h-auto w-full rounded-xl object-cover"
+            />
+            {false && <svg viewBox="0 0 1000 1000" className="w-full h-auto">
               <defs>
                 <radialGradient id="kgrad" cx="50%" cy="50%" r="60%">
                   <stop offset="0%" stopColor="#7f1d1d" stopOpacity="0.5" />
@@ -279,7 +285,7 @@ function FanArmyPage() {
                   </g>
                 );
               })}
-            </svg>
+            </svg>}
           </div>
           <div className="rounded-2xl border border-amber-500/20 bg-black/60 p-6">
             <div className="flex items-center gap-2 text-amber-300 mb-3"><MapPin size={18} /> <span className="font-display text-xl">{activeDistrict ?? "Choose a district"}</span></div>
