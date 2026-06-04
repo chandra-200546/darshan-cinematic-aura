@@ -382,13 +382,21 @@ export function Portfolio() {
         <div className="relative">
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-amber-500/40 to-transparent" />
           {[
-            { y: "2002", t: "Majestic", d: "Debut as lead — a rugged mass character explodes onto theatres and the D-Boss era is born." },
-            { y: "2003", t: "Kariya", d: "Mass action smash — establishes him as the next big Kannada hero." },
-            { y: "2005", t: "Anna Thangi", d: "Emotional family drama proves he is far more than an action star." },
-            { y: "2012", t: "Sangolli Rayanna", d: "Historical war epic — patriotism, warrior energy and pan-Karnataka respect." },
-            { y: "2019", t: "Kurukshetra", d: "Bold turn as Duryodhana — royal screen presence in a mythological scale." },
-            { y: "2021", t: "Roberrt", d: "Post-pandemic blockbuster carrying a powerful father–son emotion." },
-            { y: "2023", t: "Kaatera", d: "Rural emotional storm shatters Kannada box office records." },
+            { y: "Before 2002", t: "Early Struggle Phase", d: "Before becoming a mass icon, Darshan worked through small roles, television, behind-the-scenes experience, rejection, criticism, and years of struggle. This phase built the fire, patience, and raw screen presence that later became his identity." },
+            { y: "2002", t: "Majestic", d: "Darshan's breakthrough as a lead hero changed everything. Majestic introduced him as a powerful mass hero and became the foundation of the Challenging Star image. It was the moment rejection turned into recognition." },
+            { y: "2003", t: "Kariya", d: "Kariya gave Darshan a raw, emotional, underworld-style mass image. His look, attitude, and performance connected deeply with fans and made people feel he was born to be a mass hero." },
+            { y: "2004", t: "Kalasipalya", d: "Kalasipalya strengthened Darshan's hold over mass audiences, expanded his fan base, and turned his screen presence into a festival for mass cinema lovers." },
+            { y: "2008", t: "Gaja", d: "Gaja proved Darshan's box-office strength and gave him another powerful commercial identity. It showed that his films could pull large audiences through his name and mass appeal." },
+            { y: "2008", t: "Navagraha", d: "Navagraha is remembered as a stylish crime-action cult film and a Thoogudeepa Productions milestone, showing Darshan's journey carried legacy, production, and vision beyond performance." },
+            { y: "2011", t: "Saarathi", d: "Saarathi became a powerful comeback-style blockbuster. It was not just a hit; it was a roar that reminded Karnataka who Darshan was." },
+            { y: "2012", t: "Krantiveera Sangolli Rayanna", d: "Darshan's portrayal of Sangolli Rayanna became one of his most respected performances, bringing historical pride, awards recognition, and deep pan-Karnataka respect." },
+            { y: "2013", t: "Bulbul", d: "Bulbul showed Darshan in a softer, entertaining, family-friendly space and proved he could win hearts not only with power, but also with charm." },
+            { y: "2015", t: "Mr. Airavata", d: "Mr. Airavata presented Darshan in a stylish police avatar filled with attitude, action, and fan energy." },
+            { y: "2019", t: "Yajamana", d: "Yajamana became one of Darshan's biggest modern mass-family entertainers, carrying action, emotion, and a social message for both mass and family audiences." },
+            { y: "2019", t: "Kurukshetra", d: "Darshan played Duryodhana in this grand mythological film, marking his 50th lead film and presenting his stardom on a royal scale." },
+            { y: "2021", t: "Roberrt", d: "Roberrt brought stylish action, emotion, and a huge theatrical fan celebration, reminding everyone that when Darshan arrives, theatres do not stay silent." },
+            { y: "2023", t: "Kranti", d: "Kranti focused on education and social responsibility while keeping Darshan's mass image alive, carrying message and heroism together." },
+            { y: "2023", t: "Kaatera", d: "Kaatera became a record-breaking rural mass emotion, opening strongly and going on to collect around 105cr. It proved that Darshan's mass emotion still rules Karnataka." },
           ].map((m, i) => (
             <motion.div
               key={m.y + m.t}
