@@ -22,9 +22,10 @@ export function useAuth() {
     supabase.auth.getSession().then(({ data }) => {
       if (!active) return;
       setSession(data.session);
-      setLoading(false);
+      if (!data.session) setLoading(false);
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      setLoading(true);
       setSession(s);
     });
     return () => {
@@ -38,16 +39,24 @@ export function useAuth() {
     if (!user) {
       setProfile(null);
       setIsAdmin(false);
+      setLoading(false);
       return;
     }
+    let active = true;
+    setLoading(true);
     (async () => {
       const [{ data: prof }, { data: roles }] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", user.id).maybeSingle(),
         supabase.from("user_roles").select("role").eq("user_id", user.id),
       ]);
+      if (!active) return;
       setProfile((prof as FanProfile) ?? null);
       setIsAdmin(!!roles?.some((r: { role: string }) => r.role === "admin"));
+      setLoading(false);
     })();
+    return () => {
+      active = false;
+    };
   }, [session]);
 
   return { session, user: session?.user ?? null, profile, isAdmin, loading };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/use-auth";
 import { toast } from "sonner";
@@ -15,25 +15,37 @@ type Row = { id: string; user_id: string; title: string; type: string; caption: 
 
 function AdminPage() {
   const { isAdmin, loading, user } = useAuth();
-  const navigate = useNavigate();
   const [rows, setRows] = useState<Row[]>([]);
   const [tab, setTab] = useState<"pending" | "approved" | "rejected" | "users">("pending");
   const [users, setUsers] = useState<{ id: string; full_name: string; email: string; district: string }[]>([]);
-
-  useEffect(() => {
-    if (!loading && (!user || !isAdmin)) navigate({ to: "/fan-army" });
-  }, [loading, user, isAdmin, navigate]);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
   async function load() {
+    setLoadError(null);
     if (tab === "users") {
-      const { data } = await supabase.from("profiles").select("id, full_name, email, district").order("created_at", { ascending: false });
+      const { data, error } = await supabase.from("profiles").select("id, full_name, email, district").order("created_at", { ascending: false });
+      if (error) {
+        setLoadError(error.message);
+        toast.error(error.message);
+        return;
+      }
       setUsers(data ?? []);
       return;
     }
-    const { data } = await supabase.from("fan_posts").select("*").eq("status", tab).order("created_at", { ascending: false });
-    if (!data) return;
+    const { data, error } = await supabase.from("fan_posts").select("*").eq("status", tab).order("created_at", { ascending: false });
+    if (error) {
+      setLoadError(error.message);
+      toast.error(error.message);
+      return;
+    }
+    if (!data) {
+      setRows([]);
+      return;
+    }
     const ids = data.map((r) => r.user_id);
-    const { data: profiles } = await supabase.from("profiles").select("id, full_name, email").in("id", ids);
+    const { data: profiles } = ids.length
+      ? await supabase.from("profiles").select("id, full_name, email").in("id", ids)
+      : { data: [] };
     const pmap = new Map((profiles ?? []).map((p) => [p.id, p]));
     setRows(data.map((r) => ({ ...r, profile: pmap.get(r.user_id) })));
   }
@@ -53,7 +65,27 @@ function AdminPage() {
     load();
   }
 
-  if (loading || !isAdmin) return <div className="min-h-screen flex items-center justify-center bg-black text-amber-200">Checking access…</div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center bg-black text-amber-200">Checking access...</div>;
+  if (!user || !isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black px-6 text-amber-100">
+        <div className="max-w-lg rounded-2xl border border-amber-500/20 bg-zinc-950/80 p-8 text-center">
+          <Crown className="mx-auto mb-4 text-amber-300" />
+          <h1 className="font-display text-3xl gold-gradient">
+            {!user ? "Login required" : "Admin access needed"}
+          </h1>
+          <p className="mt-4 text-sm leading-relaxed text-zinc-300">
+            {!user
+              ? "Please log in from the Fan Army page first, then open this admin page again."
+              : "This account is logged in, but it is not marked as admin in Supabase user_roles yet. Add role admin for this user, then sign out and sign in again."}
+          </p>
+          <a href="/fan-army" className="mt-6 inline-flex rounded-full bg-amber-400 px-5 py-2 text-sm font-bold text-black">
+            Back to Fan Army
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-amber-50">
@@ -87,6 +119,7 @@ function AdminPage() {
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {loadError && <p className="col-span-full rounded-xl border border-red-500/40 bg-red-950/30 p-4 text-center text-red-200">{loadError}</p>}
             {rows.length === 0 && <p className="col-span-full text-center text-zinc-500 py-12">Nothing here.</p>}
             {rows.map((r) => (
               <div key={r.id} className="rounded-xl border border-amber-500/20 bg-zinc-950/70 overflow-hidden">
