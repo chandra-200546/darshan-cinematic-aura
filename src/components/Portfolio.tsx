@@ -27,7 +27,6 @@ import fortuner from "@/assets/cars/toyota-fortuner.webp";
 import wrangler from "@/assets/cars/jeep-wrangler.webp";
 import bmw from "@/assets/cars/bmw-520d.webp";
 import audi from "@/assets/cars/audi-q7.webp";
-import wildlife1 from "@/assets/wildlife/darshan-wildlife-01.png";
 import wildlife2 from "@/assets/wildlife/darshan-wildlife-02.png";
 import wildlife3 from "@/assets/wildlife/darshan-wildlife-03.png";
 import wildlife4 from "@/assets/wildlife/darshan-wildlife-04.png";
@@ -38,6 +37,7 @@ import wildlife8 from "@/assets/wildlife/darshan-wildlife-08.png";
 import wildlife9 from "@/assets/wildlife/darshan-wildlife-09.png";
 import wildlife10 from "@/assets/wildlife/darshan-wildlife-10.png";
 import wildlife11 from "@/assets/wildlife/darshan-wildlife-11.png";
+import wildlifeHeroHd from "@/assets/wildlife/darshan-wildlife-hero-hd.png";
 
 const chapters = [
   { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
@@ -60,7 +60,7 @@ const achievements = [
 ];
 
 const wildlifeImages = [
-  { image: wildlife1, alt: "Darshan with an elephant" },
+  { image: wildlifeHeroHd, alt: "Darshan with an elephant" },
   { image: wildlife2, alt: "Darshan with cattle" },
   { image: wildlife3, alt: "Darshan with a white horse" },
   { image: wildlife4, alt: "Darshan and family with horses" },
