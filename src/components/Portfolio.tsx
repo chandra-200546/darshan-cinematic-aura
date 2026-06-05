@@ -39,6 +39,7 @@ import wildlife10 from "@/assets/wildlife/darshan-wildlife-10.png";
 import wildlife11 from "@/assets/wildlife/darshan-wildlife-11.png";
 import wildlifeHeroHd from "@/assets/wildlife/darshan-wildlife-hero-hd.png";
 import majesticPoster from "@/assets/films/majestic-poster.png";
+import dhruvaPoster from "@/assets/films/dhruva-poster.png";
 
 const chapters = [
   { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
@@ -231,8 +232,13 @@ const createGeneratedPoster = (movie: FilmographyItem, index: number) => {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 };
 
+const filmPosters: Record<string, string> = {
+  Majestic: majesticPoster,
+  Dhruva: dhruvaPoster,
+};
+
 const getFilmPoster = (movie: FilmographyItem, index: number) =>
-  movie.title === "Majestic" ? majesticPoster : createGeneratedPoster(movie, index);
+  filmPosters[movie.title] ?? createGeneratedPoster(movie, index);
 
 export function Portfolio() {
   return (
