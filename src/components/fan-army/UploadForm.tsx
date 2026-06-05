@@ -33,10 +33,10 @@ export function UploadForm({ profile, onUploaded }: { profile: FanProfile; onUpl
       }
       const tagArr = tags.split(",").map((t) => t.trim()).filter(Boolean);
       const { error } = await supabase.from("fan_posts").insert({
-        user_id: profile.id, title, type, caption, district, tags: tagArr, media_url,
+        user_id: profile.id, title, type, caption, district, tags: tagArr, media_url, status: "approved",
       });
       if (error) throw error;
-      toast.success("Submitted! Waiting for admin approval. Jai DBoss!");
+      toast.success("Posted live! Jai DBoss!");
       setTitle(""); setCaption(""); setTags(""); setFile(null);
       onUploaded();
     } catch (err) {

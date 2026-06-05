@@ -181,7 +181,7 @@ function FanArmyPage() {
         <Section title="Fan Dashboard" eyebrow="Upload Your Tribute">
           <div className="rounded-2xl border border-amber-500/20 bg-black/50 p-6 sm:p-8 shadow-[0_0_40px_-10px_rgba(245,158,11,0.2)]">
             <UploadForm profile={profile} onUploaded={loadPosts} />
-            <p className="text-xs text-zinc-500 mt-4 text-center">Posts appear on the public wall after admin approval.</p>
+            <p className="text-xs text-zinc-500 mt-4 text-center">Posts appear on the public wall instantly after upload.</p>
           </div>
         </Section>
       )}
@@ -210,7 +210,7 @@ function FanArmyPage() {
         </div>
 
         {filtered.length === 0 ? (
-          <p className="text-center text-zinc-500 py-12">No approved posts yet. Be the first DBoss warrior to upload!</p>
+          <p className="text-center text-zinc-500 py-12">No posts yet. Be the first DBoss warrior to upload!</p>
         ) : (
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
             {filtered.map((p) => (
