@@ -38,6 +38,7 @@ import wildlife9 from "@/assets/wildlife/darshan-wildlife-09.png";
 import wildlife10 from "@/assets/wildlife/darshan-wildlife-10.png";
 import wildlife11 from "@/assets/wildlife/darshan-wildlife-11.png";
 import wildlifeHeroHd from "@/assets/wildlife/darshan-wildlife-hero-hd.png";
+import majesticPoster from "@/assets/films/majestic-poster.png";
 
 const chapters = [
   { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
@@ -229,6 +230,9 @@ const createGeneratedPoster = (movie: FilmographyItem, index: number) => {
 
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 };
+
+const getFilmPoster = (movie: FilmographyItem, index: number) =>
+  movie.title === "Majestic" ? majesticPoster : createGeneratedPoster(movie, index);
 
 export function Portfolio() {
   return (
@@ -562,7 +566,7 @@ export function Portfolio() {
               className="group relative overflow-hidden rounded-lg border border-amber-500/15 bg-black"
             >
               <div className="aspect-[2/3] overflow-hidden">
-                <img src={createGeneratedPoster(m, i)} alt={`${m.title} AI-generated poster`} className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:brightness-110" />
+                <img src={getFilmPoster(m, i)} alt={`${m.title} poster`} className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:brightness-110" />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90" />
               <div className="absolute inset-x-0 bottom-0 p-4 translate-y-2 group-hover:translate-y-0 transition">
