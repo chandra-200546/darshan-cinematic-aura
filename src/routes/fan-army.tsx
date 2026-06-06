@@ -6,7 +6,7 @@ import { useAuth, signOut, type FanProfile } from "@/lib/use-auth";
 import { AuthDialog } from "@/components/fan-army/AuthDialog";
 import { UploadForm } from "@/components/fan-army/UploadForm";
 import { DISTRICTS, DISTRICT_POSITIONS, KARNATAKA_PATH, POST_TYPE_LABEL, nextBirthday } from "@/lib/fan-army";
-import { Heart, MessageCircle, Share2, Flame, LogOut, Crown, Trophy, Cake, MapPin } from "lucide-react";
+import { Heart, MessageCircle, Share2, Flame, LogOut, Crown, Trophy, Cake, MapPin, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import fanArmyKarnataka from "@/assets/fan-army-karnataka.png";
@@ -27,6 +27,14 @@ type Post = {
   likes?: number; reactions?: number; comments?: number; liked?: boolean; reacted?: boolean;
 };
 
+function getFanUploadPath(mediaUrl: string | null) {
+  if (!mediaUrl) return null;
+  const marker = "/storage/v1/object/public/fan-uploads/";
+  const index = mediaUrl.indexOf(marker);
+  if (index === -1) return null;
+  return decodeURIComponent(mediaUrl.slice(index + marker.length));
+}
+
 function FanArmyPage() {
   const { user, profile, isAdmin, loading } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
@@ -35,6 +43,7 @@ function FanArmyPage() {
   const [filter, setFilter] = useState<string>("latest");
   const [districtFilter, setDistrictFilter] = useState<string>("");
   const [activeDistrict, setActiveDistrict] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   async function loadPosts() {
     const { data } = await supabase
@@ -121,6 +130,28 @@ function FanArmyPage() {
     const url = window.location.href + "#post-" + p.id;
     try { await navigator.share?.({ title: p.title, url }); }
     catch { navigator.clipboard.writeText(url); toast.success("Link copied"); }
+  }
+  async function removePost(p: Post) {
+    if (!isAdmin) return;
+    if (!confirm(`Delete "${p.title}" permanently? This removes it from Fan Army and deletes the uploaded media file when available.`)) return;
+    setDeletingId(p.id);
+
+    const storagePath = getFanUploadPath(p.media_url);
+    if (storagePath) {
+      const { error: storageError } = await supabase.storage.from("fan-uploads").remove([storagePath]);
+      if (storageError) {
+        toast.warning(`Post will be deleted, but media file could not be removed: ${storageError.message}`);
+      }
+    }
+
+    const { error } = await supabase.from("fan_posts").delete().eq("id", p.id);
+    setDeletingId(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Fan Army post deleted");
+    loadPosts();
   }
 
   return (
@@ -216,9 +247,23 @@ function FanArmyPage() {
             {filtered.map((p) => (
               <motion.article key={p.id} id={`post-${p.id}`}
                 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                className="break-inside-avoid rounded-xl border border-amber-500/15 bg-zinc-950/70 overflow-hidden hover:border-amber-400/60 hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)] transition">
+                className="relative break-inside-avoid rounded-xl border border-amber-500/15 bg-zinc-950/70 overflow-hidden hover:border-amber-400/60 hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.4)] transition">
+                {isAdmin && (
+                  <button
+                    onClick={() => removePost(p)}
+                    disabled={deletingId === p.id}
+                    title="Delete post and uploaded media"
+                    className="absolute right-3 top-3 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-red-300/40 bg-red-600/95 text-white shadow-lg shadow-black/40 transition hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                )}
                 {p.media_url && (p.type === "video" ? (
                   <video src={p.media_url} controls className="w-full" />
+                ) : p.type === "audio" ? (
+                  <div className="flex min-h-36 items-center bg-gradient-to-br from-zinc-900 to-black p-4">
+                    <audio src={p.media_url} controls className="w-full" />
+                  </div>
                 ) : (
                   <img src={p.media_url} alt={p.title} className="w-full object-cover" />
                 ))}
