@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { motion } from "motion/react";
-import { Film, Award, Heart, Star, Play, Gauge, Zap, Timer, IndianRupee } from "lucide-react";
+import { Film, Award, Heart, Star, Play, Gauge, Zap, Timer, IndianRupee, Menu, X } from "lucide-react";
 import { filmography, type FilmographyItem } from "@/lib/filmography";
 
 const SocialIcon = ({ d, label }: { d: string; label: string }) => (
@@ -8,6 +9,19 @@ const SocialIcon = ({ d, label }: { d: string; label: string }) => (
 const SOCIALS = {
   x: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
 };
+
+const navLinks = [
+  { href: "#about", label: "About" },
+  { href: "#story", label: "Story" },
+  { href: "#wildlife", label: "Wildlife" },
+  { href: "#career", label: "Career" },
+  { href: "#movies", label: "Films" },
+  { href: "#cars", label: "Cars" },
+  { href: "#awards", label: "Awards" },
+  { href: "#fans", label: "Fans" },
+  { href: "/fan-army", label: "Fan Army", featured: true },
+  { href: "#contact", label: "Contact" },
+];
 import d1 from "@/assets/darshan-1.png";
 import d2 from "@/assets/darshan-2.png";
 import d3 from "@/assets/darshan-3.png";
@@ -295,6 +309,8 @@ const getFilmPoster = (movie: FilmographyItem, index: number) =>
   filmPosters[movie.title] ?? createGeneratedPoster(movie, index);
 
 export function Portfolio() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
   return (
     <motion.main
       initial={{ opacity: 0 }}
@@ -303,24 +319,54 @@ export function Portfolio() {
       className="min-h-screen bg-background text-foreground"
     >
       {/* NAV */}
-      <nav className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-black/40 border-b border-amber-500/10">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <a href="#hero" className="font-display gold-gradient text-lg sm:text-xl font-bold tracking-widest">D • BOSS</a>
-          <div className="hidden md:flex gap-8 text-xs uppercase tracking-[0.25em] text-amber-100/70">
-            <a href="#about" className="hover:text-amber-300 transition">About</a>
-            <a href="#story" className="hover:text-amber-300 transition">Story</a>
-            <a href="#wildlife" className="hover:text-amber-300 transition">Wildlife</a>
-            <a href="#career" className="hover:text-amber-300 transition">Career</a>
-            <a href="#movies" className="hover:text-amber-300 transition">Films</a>
-            <a href="#cars" className="hover:text-amber-300 transition">Cars</a>
-            <a href="#awards" className="hover:text-amber-300 transition">Awards</a>
-            <a href="#fans" className="hover:text-amber-300 transition">Fans</a>
-            <a href="/fan-army" className="text-red-400 hover:text-amber-300 transition font-bold">Fan Army</a>
-            <a href="#contact" className="hover:text-amber-300 transition">Contact</a>
+      <nav className="fixed top-0 inset-x-0 z-40 backdrop-blur-md bg-black/70 border-b border-amber-500/10">
+        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:py-4">
+          <div className="flex items-center justify-between">
+            <a href="#hero" onClick={() => setMobileNavOpen(false)} className="font-display gold-gradient text-lg sm:text-xl font-bold tracking-widest">D • BOSS</a>
+            <div className="hidden md:flex gap-8 text-xs uppercase tracking-[0.25em] text-amber-100/70">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`${link.featured ? "text-red-400 font-bold" : ""} hover:text-amber-300 transition`}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <button
+              type="button"
+              aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileNavOpen}
+              onClick={() => setMobileNavOpen((open) => !open)}
+              className="md:hidden inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-amber-200"
+            >
+              {mobileNavOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              Menu
+            </button>
           </div>
+          {mobileNavOpen && (
+            <div className="md:hidden mt-4 rounded-2xl border border-amber-500/20 bg-black/95 p-3 shadow-[0_20px_80px_rgba(0,0,0,0.75)]">
+              <div className="grid grid-cols-2 gap-2">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileNavOpen(false)}
+                    className={`rounded-xl border border-amber-500/10 px-4 py-3 text-center text-[11px] font-bold uppercase tracking-[0.18em] transition ${
+                      link.featured
+                        ? "bg-red-500/15 text-red-300 border-red-400/30"
+                        : "bg-amber-400/5 text-amber-100/75 hover:bg-amber-400/10 hover:text-amber-200"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </nav>
-
       {/* HERO */}
       <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-20">
         <div className="absolute inset-0">
@@ -611,11 +657,11 @@ export function Portfolio() {
       {/* MOVIES */}
       <Section id="movies">
         <SectionTitle eyebrow="FILMOGRAPHY" title="Complete Movie Gallery" />
-        <p className="mx-auto -mt-8 mb-14 max-w-3xl text-center text-sm leading-relaxed text-amber-100/60 sm:text-base">
+        <p className="mx-auto -mt-8 mb-10 max-w-3xl text-center text-sm leading-relaxed text-amber-100/60 sm:mb-14 sm:text-base">
           A full career timeline from early appearances to modern blockbusters, each presented with a
-          unique AI-generated cinematic tribute poster.
+          mix of original posters and cinematic tribute artwork.
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-6">
           {filmography.map((m, i) => (
             <motion.div
               key={`${m.year}-${m.title}-${i}`}
@@ -623,21 +669,21 @@ export function Portfolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
-              className="group relative overflow-hidden rounded-lg border border-amber-500/15 bg-black"
+              className="group relative overflow-hidden rounded-2xl border border-amber-500/15 bg-black shadow-[0_18px_70px_rgba(0,0,0,0.35)] sm:rounded-lg"
             >
               <div className="aspect-[2/3] overflow-hidden">
                 <img src={getFilmPoster(m, i)} alt={`${m.title} poster`} className="h-full w-full object-cover transition duration-700 group-hover:scale-110 group-hover:brightness-110" />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90" />
-              <div className="absolute inset-x-0 bottom-0 p-4 translate-y-2 group-hover:translate-y-0 transition">
-                <div className="font-display text-amber-200 text-lg leading-tight">{m.title}</div>
-                <div className="text-xs uppercase tracking-widest text-amber-100/50 mt-1">{m.year} / {m.role}</div>
-                <div className="mt-2 inline-flex rounded-full border border-amber-400/30 px-2 py-1 text-[9px] uppercase tracking-[0.2em] text-amber-300/80">
+              <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90" />
+              <div className="p-4 sm:absolute sm:inset-x-0 sm:bottom-0 sm:translate-y-2 sm:transition sm:group-hover:translate-y-0">
+                <div className="font-display text-amber-200 text-2xl leading-tight sm:text-lg">{m.title}</div>
+                <div className="mt-2 break-words text-[11px] uppercase tracking-[0.16em] text-amber-100/55 sm:mt-1 sm:text-xs sm:tracking-widest">{m.year} / {m.role}</div>
+                <div className="mt-3 inline-flex max-w-full rounded-full border border-amber-400/30 px-3 py-1 text-[10px] uppercase tracking-[0.12em] text-amber-300/85 sm:mt-2 sm:px-2 sm:text-[9px] sm:tracking-[0.2em]">
                   {m.verdict}
                 </div>
-                <div className="line-clamp-3 text-[11px] leading-relaxed text-amber-100/65 mt-2 opacity-0 group-hover:opacity-100 transition">{m.about}</div>
+                <div className="mt-3 line-clamp-4 text-sm leading-relaxed text-amber-100/65 sm:mt-2 sm:line-clamp-3 sm:text-[11px] sm:opacity-0 sm:transition sm:group-hover:opacity-100">{m.about}</div>
               </div>
-              <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition">
+              <div className="hidden sm:block absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition">
                 <Play className="w-8 h-8 text-amber-300 fill-amber-300/30" />
               </div>
             </motion.div>
