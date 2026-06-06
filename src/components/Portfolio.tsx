@@ -151,9 +151,9 @@ const cars: Car[] = [
 ];
 
 const fanQuotes = [
-  { name: "Raghu • Mysuru", text: "Boss is not just an actor, he is an emotion for every Kannadiga. Abhimani for life!" },
-  { name: "Chandrashekhar • Bengaluru", text: "From Majestic to Kaatera — every film is a celebration. Hats off Challenging Star!" },
-  { name: "Kiran • Hassan", text: "Darshan sir's swag, dialogues and screen presence — nobody can match. D-Boss forever!" },
+  { name: "ಆಪದ್ಬಾಂಧವ", text: "DBoss - Luna to Lamborghini, he built a massive cult fandom through charisma, loyalty, and unmatched screen presence. A true king of craze, both offline and online, whose aura speaks louder than words. Beyond stardom, he stands as a helping hand to many, donating crores and touching millions of lives - one man, a million souls." },
+  { name: "Rakesh, Shivamogga", text: "Darshan sir's greatness is not measured by fame alone, but by the lives he touches. His simplicity, helping nature, and love for the common people make him truly special. From blockbuster movies to countless acts of kindness, he continues to inspire millions. A man who carries success with humility and power with responsibility. His character off screen shines as brightly as his presence on screen. Forever proud to admire and support such a remarkable human being. ❤️" },
+  { name: "Chandrashekhar", text: "Darshan sir is not just an actor for me. He is my inspiration, my idol. His struggle, his confidence, his mass personality, and the way he stands strong no matter how many problems life throws at him - all these things truly inspire me. People may say anything, time may change anything, but my respect for him will never change. He was my idol. He is my idol. And he shall always be my idol. DBoss forever. ❤️" },
 ];
 
 const Section = ({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) => (
