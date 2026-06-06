@@ -12,13 +12,23 @@ export const Route = createFileRoute("/fan-army/admin")({
 });
 
 type Row = { id: string; user_id: string; title: string; type: string; caption: string | null; media_url: string | null; status: string; featured: boolean; district: string | null; created_at: string; profile?: { full_name: string; email: string } };
+type AdminTab = "all" | "pending" | "approved" | "rejected" | "users";
+
+function getFanUploadPath(mediaUrl: string | null) {
+  if (!mediaUrl) return null;
+  const marker = "/storage/v1/object/public/fan-uploads/";
+  const index = mediaUrl.indexOf(marker);
+  if (index === -1) return null;
+  return decodeURIComponent(mediaUrl.slice(index + marker.length));
+}
 
 function AdminPage() {
   const { isAdmin, loading, user } = useAuth();
   const [rows, setRows] = useState<Row[]>([]);
-  const [tab, setTab] = useState<"pending" | "approved" | "rejected" | "users">("pending");
+  const [tab, setTab] = useState<AdminTab>("all");
   const [users, setUsers] = useState<{ id: string; full_name: string; email: string; district: string }[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   async function load() {
     setLoadError(null);
@@ -32,7 +42,9 @@ function AdminPage() {
       setUsers(data ?? []);
       return;
     }
-    const { data, error } = await supabase.from("fan_posts").select("*").eq("status", tab).order("created_at", { ascending: false });
+    let query = supabase.from("fan_posts").select("*").order("created_at", { ascending: false });
+    if (tab !== "all") query = query.eq("status", tab);
+    const { data, error } = await query;
     if (error) {
       setLoadError(error.message);
       toast.error(error.message);
@@ -59,9 +71,25 @@ function AdminPage() {
     await supabase.from("fan_posts").update({ featured: !featured }).eq("id", id);
     load();
   }
-  async function remove(id: string) {
-    if (!confirm("Delete this post?")) return;
-    await supabase.from("fan_posts").delete().eq("id", id);
+  async function remove(row: Row) {
+    if (!confirm(`Delete "${row.title}" permanently? This removes it from Fan Army and deletes the uploaded media file when available.`)) return;
+    setDeletingId(row.id);
+
+    const storagePath = getFanUploadPath(row.media_url);
+    if (storagePath) {
+      const { error: storageError } = await supabase.storage.from("fan-uploads").remove([storagePath]);
+      if (storageError) {
+        toast.warning(`Post will be deleted, but media file could not be removed: ${storageError.message}`);
+      }
+    }
+
+    const { error } = await supabase.from("fan_posts").delete().eq("id", row.id);
+    setDeletingId(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Post deleted");
     load();
   }
 
@@ -96,7 +124,7 @@ function AdminPage() {
       </header>
       <div className="max-w-7xl mx-auto px-6 py-8">
         <div className="flex gap-2 mb-6 flex-wrap">
-          {(["pending", "approved", "rejected", "users"] as const).map((t) => (
+          {(["all", "pending", "approved", "rejected", "users"] as const).map((t) => (
             <button key={t} onClick={() => setTab(t)}
               className={`text-xs uppercase tracking-[0.2em] rounded-full px-4 py-1.5 border ${tab === t ? "bg-amber-400 text-black border-amber-400" : "border-amber-500/30 text-amber-200"}`}>
               {t}
@@ -125,16 +153,24 @@ function AdminPage() {
               <div key={r.id} className="rounded-xl border border-amber-500/20 bg-zinc-950/70 overflow-hidden">
                 {r.media_url && (r.type === "video"
                   ? <video src={r.media_url} controls className="w-full h-48 object-cover" />
-                  : <img src={r.media_url} alt="" className="w-full h-48 object-cover" />)}
+                  : r.type === "audio"
+                    ? <div className="flex h-48 items-center bg-gradient-to-br from-zinc-900 to-black p-4"><audio src={r.media_url} controls className="w-full" /></div>
+                    : <img src={r.media_url} alt="" className="w-full h-48 object-cover" />)}
                 <div className="p-4 space-y-2">
                   <div className="font-semibold text-amber-100">{r.title}</div>
-                  <div className="text-xs text-zinc-400">{r.profile?.full_name} · {r.district} · {r.type}</div>
+                  <div className="text-xs text-zinc-400">{r.profile?.full_name} · {r.district} · {r.type} · {r.status}</div>
                   {r.caption && <p className="text-sm text-zinc-300">{r.caption}</p>}
-                  <div className="flex gap-2 pt-2">
-                    {tab !== "approved" && <button onClick={() => setStatus(r.id, "approved")} className="flex-1 bg-green-600 text-white rounded text-xs py-1.5 flex items-center justify-center gap-1"><Check size={14}/> Approve</button>}
-                    {tab !== "rejected" && <button onClick={() => setStatus(r.id, "rejected")} className="flex-1 bg-zinc-700 text-white rounded text-xs py-1.5 flex items-center justify-center gap-1"><X size={14}/> Reject</button>}
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {r.status !== "approved" && <button onClick={() => setStatus(r.id, "approved")} className="flex-1 bg-green-600 text-white rounded text-xs py-1.5 flex items-center justify-center gap-1"><Check size={14}/> Approve</button>}
+                    {r.status !== "rejected" && <button onClick={() => setStatus(r.id, "rejected")} className="flex-1 bg-zinc-700 text-white rounded text-xs py-1.5 flex items-center justify-center gap-1"><X size={14}/> Reject</button>}
                     {r.status === "approved" && <button onClick={() => toggleFeature(r.id, r.featured)} className={`flex-1 rounded text-xs py-1.5 flex items-center justify-center gap-1 ${r.featured ? "bg-amber-400 text-black" : "bg-amber-500/20 text-amber-200"}`}><Star size={14}/> {r.featured ? "Featured" : "Feature"}</button>}
-                    <button onClick={() => remove(r.id)} className="bg-red-600 text-white rounded text-xs px-3 py-1.5"><Trash2 size={14}/></button>
+                    <button
+                      onClick={() => remove(r)}
+                      disabled={deletingId === r.id}
+                      className="w-full bg-red-600 text-white rounded text-xs px-3 py-1.5 flex items-center justify-center gap-1 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <Trash2 size={14}/> {deletingId === r.id ? "Deleting..." : "Delete Post & Media"}
+                    </button>
                   </div>
                 </div>
               </div>
