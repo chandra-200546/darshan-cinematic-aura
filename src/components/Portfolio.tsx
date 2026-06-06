@@ -40,6 +40,33 @@ import wildlife11 from "@/assets/wildlife/darshan-wildlife-11.png";
 import wildlifeHeroHd from "@/assets/wildlife/darshan-wildlife-hero-hd.png";
 import majesticPoster from "@/assets/films/majestic-poster.png";
 import dhruvaPoster from "@/assets/films/dhruva-poster.png";
+import devilPoster from "@/assets/films/devil-poster.png";
+import dharmaPoster from "@/assets/films/dharma-poster.png";
+import darshanPoster from "@/assets/films/darshan-poster.png";
+import bhagawanPoster from "@/assets/films/bhagawan-poster.png";
+import kalasipalyaPoster from "@/assets/films/kalasipalya-poster.png";
+import kittyPoster from "@/assets/films/kitty-poster.png";
+import kariyaPoster from "@/assets/films/kariya-poster.png";
+import laaliHaaduPoster from "@/assets/films/laali-haadu-poster.png";
+import neenandreIshtaPoster from "@/assets/films/neenandre-ishta-poster.png";
+import saradaraPoster from "@/assets/films/saradara-poster.png";
+import ayyaPoster from "@/assets/films/ayya-poster.png";
+import shastriPoster from "@/assets/films/shastri-poster.png";
+import porkiPoster from "@/assets/films/porki-poster.png";
+import tarakPoster from "@/assets/films/tarak-poster.png";
+import krantiPoster from "@/assets/films/kranti-poster.png";
+import lankeshPatrikePoster from "@/assets/films/lankesh-patrike-poster.png";
+import nammaPreethiyaRamuPoster from "@/assets/films/namma-preethiya-ramu-poster.png";
+import daasaPoster from "@/assets/films/daasa-poster.png";
+import annavruPoster from "@/assets/films/annavru-poster.png";
+import mrAiravataPoster from "@/assets/films/mr-airavata-poster.png";
+import yajamanaPoster from "@/assets/films/yajamana-poster.png";
+import roberrtPoster from "@/assets/films/roberrt-poster.png";
+import odeyaPoster from "@/assets/films/odeya-poster.png";
+import kaateraPoster from "@/assets/films/kaatera-poster.png";
+import ambareeshaPoster from "@/assets/films/ambareesha-poster.png";
+import chingariPoster from "@/assets/films/chingari-poster.png";
+import kurukshetraPoster from "@/assets/films/kurukshetra-poster.png";
 
 const chapters = [
   { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
@@ -235,6 +262,33 @@ const createGeneratedPoster = (movie: FilmographyItem, index: number) => {
 const filmPosters: Record<string, string> = {
   Majestic: majesticPoster,
   Dhruva: dhruvaPoster,
+  "The Devil": devilPoster,
+  Dharma: dharmaPoster,
+  Darshan: darshanPoster,
+  Bhagawan: bhagawanPoster,
+  Kalasipalya: kalasipalyaPoster,
+  Kitty: kittyPoster,
+  Kariya: kariyaPoster,
+  "Laali Haadu": laaliHaaduPoster,
+  "Neenandre Ishta": neenandreIshtaPoster,
+  Saradara: saradaraPoster,
+  Ayya: ayyaPoster,
+  Shastri: shastriPoster,
+  Porki: porkiPoster,
+  Tarak: tarakPoster,
+  Kranti: krantiPoster,
+  "Lankesh Patrike": lankeshPatrikePoster,
+  "Namma Preethiya Ramu": nammaPreethiyaRamuPoster,
+  Daasa: daasaPoster,
+  Annavru: annavruPoster,
+  "Mr. Airavata": mrAiravataPoster,
+  Yajamana: yajamanaPoster,
+  Roberrt: roberrtPoster,
+  Odeya: odeyaPoster,
+  Kaatera: kaateraPoster,
+  Ambareesha: ambareeshaPoster,
+  Chingari: chingariPoster,
+  Kurukshetra: kurukshetraPoster,
 };
 
 const getFilmPoster = (movie: FilmographyItem, index: number) =>
