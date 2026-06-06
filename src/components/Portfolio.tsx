@@ -133,7 +133,7 @@ const cars: Car[] = [
   { name: "Toyota Fortuner", image: fortuner, price: "53 Lakh", power: "263 bhp", torque: "400 Nm", topSpeed: "180 km/h" },
   { name: "Jeep Wrangler", image: wrangler, price: "61 Lakh", power: "187 bhp", torque: "400 Nm", topSpeed: "238 km/h" },
   { name: "BMW 520D", image: bmw, price: "85.52 Lakh", power: "187 bhp", torque: "400 Nm", topSpeed: "238 km/h" },
-  { name: "Audi Q7", image: audi },
+  { name: "Audi Q7", image: audi, price: "88 Lakh", power: "335 bhp", torque: "500 Nm", topSpeed: "250 km/h" },
 ];
 
 const fanQuotes = [
