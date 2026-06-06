@@ -81,6 +81,29 @@ import kaateraPoster from "@/assets/films/kaatera-poster.png";
 import ambareeshaPoster from "@/assets/films/ambareesha-poster.png";
 import chingariPoster from "@/assets/films/chingari-poster.png";
 import kurukshetraPoster from "@/assets/films/kurukshetra-poster.png";
+import swamyPoster from "@/assets/films/swamy-poster.png";
+import mandyaPoster from "@/assets/films/mandya-poster.png";
+import suntaragaaliPoster from "@/assets/films/suntaragaali-poster.png";
+import datthaPoster from "@/assets/films/dattha-poster.png";
+import thangigagiPoster from "@/assets/films/thangigagi-poster.png";
+import bhoopathiPoster from "@/assets/films/bhoopathi-poster.png";
+import snehanaPreethinaPoster from "@/assets/films/snehana-preethina-poster.png";
+import anatharuPoster from "@/assets/films/anatharu-poster.png";
+import gajaPoster from "@/assets/films/gaja-poster.png";
+import indraPoster from "@/assets/films/indra-poster.png";
+import arjunPoster from "@/assets/films/arjun-poster.png";
+import navagrahaPoster from "@/assets/films/navagraha-poster.png";
+import yodhaPoster from "@/assets/films/yodha-poster.png";
+import abhayPoster from "@/assets/films/abhay-poster.png";
+import shouryaPoster from "@/assets/films/shourya-poster.png";
+import princePoster from "@/assets/films/prince-poster.png";
+import saarathiPoster from "@/assets/films/saarathi-poster.png";
+import krantiveeraSangolliRayannaPoster from "@/assets/films/krantiveera-sangolli-rayanna-poster.png";
+import bulbulPoster from "@/assets/films/bulbul-poster.png";
+import brindavanaPoster from "@/assets/films/brindavana-poster.png";
+import viraatPoster from "@/assets/films/viraat-poster.png";
+import jagguDadaPoster from "@/assets/films/jaggu-dada-poster.png";
+import chakravarthyPoster from "@/assets/films/chakravarthy-poster.png";
 
 const chapters = [
   { n: "I", title: "The Boy Who Grew Up Inside Cinema", body: "Born Hemanth Kumar on 16 February 1977 in Karnataka to veteran actor Thoogudeepa Srinivas. Behind the screen-fame was struggle, instability and pressure — yet a boy deeply attached to Karnataka, village life and animals." },
@@ -303,6 +326,29 @@ const filmPosters: Record<string, string> = {
   Ambareesha: ambareeshaPoster,
   Chingari: chingariPoster,
   Kurukshetra: kurukshetraPoster,
+  Swamy: swamyPoster,
+  Mandya: mandyaPoster,
+  Suntaragaali: suntaragaaliPoster,
+  Dattha: datthaPoster,
+  Thangigagi: thangigagiPoster,
+  Bhoopathi: bhoopathiPoster,
+  "Snehana Preethina": snehanaPreethinaPoster,
+  Anatharu: anatharuPoster,
+  Gaja: gajaPoster,
+  Indra: indraPoster,
+  Arjun: arjunPoster,
+  Navagraha: navagrahaPoster,
+  Yodha: yodhaPoster,
+  Abhay: abhayPoster,
+  Shourya: shouryaPoster,
+  Prince: princePoster,
+  Saarathi: saarathiPoster,
+  "Krantiveera Sangolli Rayanna": krantiveeraSangolliRayannaPoster,
+  Bulbul: bulbulPoster,
+  Brindavana: brindavanaPoster,
+  Viraat: viraatPoster,
+  "Jaggu Dada": jagguDadaPoster,
+  Chakravarthy: chakravarthyPoster,
 };
 
 const getFilmPoster = (movie: FilmographyItem, index: number) =>
