@@ -6,7 +6,7 @@ import { useAuth, signOut, type FanProfile } from "@/lib/use-auth";
 import { AuthDialog } from "@/components/fan-army/AuthDialog";
 import { UploadForm } from "@/components/fan-army/UploadForm";
 import { DISTRICTS, DISTRICT_POSITIONS, KARNATAKA_PATH, POST_TYPE_LABEL, nextBirthday } from "@/lib/fan-army";
-import { Heart, MessageCircle, Share2, Flame, LogOut, Crown, Trophy, Cake, MapPin, Trash2 } from "lucide-react";
+import { Heart, MessageCircle, Share2, Flame, LogOut, Crown, Trophy, Cake, MapPin, Trash2, Send } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import fanArmyKarnataka from "@/assets/fan-army-karnataka.png";
@@ -25,6 +25,16 @@ type Post = {
   status: string; featured: boolean; created_at: string;
   profile?: FanProfile;
   likes?: number; reactions?: number; comments?: number; liked?: boolean; reacted?: boolean;
+  commentList?: FanComment[];
+};
+
+type FanComment = {
+  id: string;
+  post_id: string;
+  user_id: string;
+  body: string;
+  created_at: string;
+  profile?: FanProfile;
 };
 
 function getFanUploadPath(mediaUrl: string | null) {
@@ -44,6 +54,9 @@ function FanArmyPage() {
   const [districtFilter, setDistrictFilter] = useState<string>("");
   const [activeDistrict, setActiveDistrict] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [openComments, setOpenComments] = useState<string | null>(null);
+  const [commentDrafts, setCommentDrafts] = useState<Record<string, string>>({});
+  const [commentingId, setCommentingId] = useState<string | null>(null);
 
   async function loadPosts() {
     const { data } = await supabase
@@ -53,21 +66,31 @@ function FanArmyPage() {
       .order("created_at", { ascending: false })
       .limit(200);
     if (!data) return;
-    const ids = data.map((p) => p.user_id);
-    const { data: profiles } = await supabase.from("profiles").select("*").in("id", ids);
+    const postIds = data.map((p) => p.id);
+    const { data: comments } = postIds.length
+      ? await supabase.from("post_comments").select("*").in("post_id", postIds).order("created_at", { ascending: true })
+      : { data: [] };
+    const ids = [...data.map((p) => p.user_id), ...(comments ?? []).map((c) => c.user_id)];
+    const profileIds = [...new Set(ids)];
+    const { data: profiles } = profileIds.length
+      ? await supabase.from("profiles").select("*").in("id", profileIds)
+      : { data: [] };
     const { data: likes } = await supabase.from("post_likes").select("post_id, user_id");
     const { data: reactions } = await supabase.from("post_reactions").select("post_id, user_id");
-    const { data: comments } = await supabase.from("post_comments").select("post_id");
     const pmap = new Map((profiles ?? []).map((p) => [p.id, p as FanProfile]));
     const enriched: Post[] = data.map((p) => {
       const pl = (likes ?? []).filter((l) => l.post_id === p.id);
       const pr = (reactions ?? []).filter((r) => r.post_id === p.id);
+      const commentList = (comments ?? [])
+        .filter((c) => c.post_id === p.id)
+        .map((c) => ({ ...c, profile: pmap.get(c.user_id) })) as FanComment[];
       return {
         ...p,
         profile: pmap.get(p.user_id),
         likes: pl.length,
         reactions: pr.length,
-        comments: (comments ?? []).filter((c) => c.post_id === p.id).length,
+        comments: commentList.length,
+        commentList,
         liked: user ? pl.some((l) => l.user_id === user.id) : false,
         reacted: user ? pr.some((r) => r.user_id === user.id) : false,
       };
@@ -76,6 +99,20 @@ function FanArmyPage() {
   }
 
   useEffect(() => { loadPosts(); }, [user?.id]);
+
+  useEffect(() => {
+    const channel = supabase
+      .channel("fan-army-wall-live")
+      .on("postgres_changes", { event: "*", schema: "public", table: "fan_posts" }, loadPosts)
+      .on("postgres_changes", { event: "*", schema: "public", table: "post_likes" }, loadPosts)
+      .on("postgres_changes", { event: "*", schema: "public", table: "post_reactions" }, loadPosts)
+      .on("postgres_changes", { event: "*", schema: "public", table: "post_comments" }, loadPosts)
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id]);
 
   const filtered = useMemo(() => {
     let list = [...posts];
@@ -130,6 +167,21 @@ function FanArmyPage() {
     const url = window.location.href + "#post-" + p.id;
     try { await navigator.share?.({ title: p.title, url }); }
     catch { navigator.clipboard.writeText(url); toast.success("Link copied"); }
+  }
+  async function submitComment(p: Post) {
+    if (!user) { setAuthMode("login"); setAuthOpen(true); return; }
+    const body = (commentDrafts[p.id] ?? "").trim();
+    if (!body) return;
+    setCommentingId(p.id);
+    const { error } = await supabase.from("post_comments").insert({ post_id: p.id, user_id: user.id, body });
+    setCommentingId(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    setCommentDrafts((drafts) => ({ ...drafts, [p.id]: "" }));
+    toast.success("Comment added");
+    loadPosts();
   }
   async function removePost(p: Post) {
     if (!isAdmin) return;
@@ -288,9 +340,52 @@ function FanArmyPage() {
                     <button onClick={() => toggleReact(p)} className={`flex items-center gap-1 hover:text-amber-400 ${p.reacted ? "text-amber-400" : "text-zinc-400"}`}>
                       <Flame size={15} /> Jai DBoss · {p.reactions}
                     </button>
-                    <span className="flex items-center gap-1 text-zinc-400"><MessageCircle size={14} /> {p.comments}</span>
+                    <button onClick={() => setOpenComments(openComments === p.id ? null : p.id)} className={`flex items-center gap-1 hover:text-amber-300 ${openComments === p.id ? "text-amber-300" : "text-zinc-400"}`}>
+                      <MessageCircle size={14} /> {p.comments}
+                    </button>
                     <button onClick={() => share(p)} className="ml-auto text-zinc-400 hover:text-amber-300"><Share2 size={15} /></button>
                   </div>
+                  {openComments === p.id && (
+                    <div className="mt-4 rounded-lg border border-amber-500/15 bg-black/35 p-3">
+                      <div className="max-h-52 space-y-3 overflow-y-auto pr-1">
+                        {(p.commentList ?? []).length === 0 ? (
+                          <p className="text-xs text-zinc-500">No comments yet. Start the DBoss talk.</p>
+                        ) : (
+                          p.commentList?.map((comment) => (
+                            <div key={comment.id} className="rounded-md bg-zinc-900/80 p-2">
+                              <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-amber-300/70">
+                                <span>{comment.profile?.full_name ?? "Fan"}</span>
+                                <span className="text-zinc-600">•</span>
+                                <span>{new Date(comment.created_at).toLocaleDateString()}</span>
+                              </div>
+                              <p className="mt-1 text-sm text-zinc-200">{comment.body}</p>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                      <form
+                        className="mt-3 flex gap-2"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          submitComment(p);
+                        }}
+                      >
+                        <input
+                          value={commentDrafts[p.id] ?? ""}
+                          onChange={(e) => setCommentDrafts((drafts) => ({ ...drafts, [p.id]: e.target.value }))}
+                          placeholder={user ? "Write a comment..." : "Login to comment"}
+                          className="min-w-0 flex-1 rounded-md border border-amber-500/20 bg-black/70 px-3 py-2 text-xs text-amber-50 outline-none focus:border-amber-400"
+                        />
+                        <button
+                          type="submit"
+                          disabled={commentingId === p.id}
+                          className="inline-flex items-center justify-center rounded-md bg-amber-400 px-3 py-2 text-black transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                          <Send size={14} />
+                        </button>
+                      </form>
+                    </div>
+                  )}
                 </div>
               </motion.article>
             ))}
